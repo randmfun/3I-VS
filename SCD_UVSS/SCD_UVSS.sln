@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoSurveillance", "VideoSurveillance.csproj", "{8DCBFD7F-3248-43D3-A7DC-9E62FB99620E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCD_UVSS", "SCD_UVSS.csproj", "{8DCBFD7F-3248-43D3-A7DC-9E62FB99620E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "..\UnitTest\UnitTest.csproj", "{2DC95E5D-3BC8-4D22-BA8D-C132677B31BA}"
 EndProject

@@ -18,7 +18,7 @@ namespace SCD_UVSS.ViewModel
 
                 BitmapImage logo = new BitmapImage();
                 logo.BeginInit();
-                logo.UriSource = new Uri(@"D:\personal\code\vs-jac\VideoSurveillance\Images\WIN_20141123_103530.JPG");
+                logo.UriSource = new Uri(@"D:\me.jpg");
                 logo.EndInit();
                 
                 imageViewer.Source = logo;
