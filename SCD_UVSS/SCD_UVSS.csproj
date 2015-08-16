@@ -70,6 +70,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dal\DataAcessLayer.cs" />
+    <Compile Include="Dal\DBProviders\IDatabaseProvider.cs" />
+    <Compile Include="Dal\DBProviders\MySqlDatabaseProvider.cs" />
+    <Compile Include="Model\BlackListItem.cs" />
+    <Compile Include="Model\VehicleInfoModel.cs" />
+    <Compile Include="Utils\Logger.cs" />
     <Compile Include="ViewModel\CameraListViewModel.cs" />
     <Compile Include="View\CameraViews.xaml.cs">
       <DependentUpon>CameraViews.xaml</DependentUpon>
@@ -93,8 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\CameraCollectionModel.cs" />
-    <Compile Include="Model\CameraGroupModel.cs" />
-    <Compile Include="Model\CameraModel.cs" />
+    <Compile Include="Model\Gate.cs" />
+    <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\CameraViewPropertiesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -148,7 +154,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dal\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

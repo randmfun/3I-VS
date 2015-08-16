@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS
@@ -51,6 +52,14 @@ namespace SCD_UVSS
                 fstrm.Read(data, 0, (int) fstrm.Length);
             }
             return data;
+        }
+
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+                this.AppWindow.WindowState = WindowState.Normal;
+                this.AppWindow.WindowStyle = WindowStyle.ThreeDBorderWindow;
         }
     }
     

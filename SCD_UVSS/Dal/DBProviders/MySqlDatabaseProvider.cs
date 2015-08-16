@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SCD_UVSS.Model;
 
-namespace UnitTest
+namespace SCD_UVSS.Dal.DBProviders
 {
-    public class Class1
+    public class MySqlDatabaseProvider 
     {
     }
 }

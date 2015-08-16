@@ -5,43 +5,43 @@ namespace SCD_UVSS.Model
     public class CameraCollectionModel: CollectionBase
     {
 		// Get came at the specified index
-		public CameraModel this[int index]
+		public Camera this[int index]
 		{
 			get
 			{
-				return ((CameraModel) InnerList[index]);
+				return ((Camera) InnerList[index]);
 			}
 		}
 
 		// Add new CameraModel to the collection
-		public void Add(CameraModel CameraModel)
+		public void Add(Camera CameraModel)
 		{
 			InnerList.Add(CameraModel);
 		}
 
 		// Remove CameraModel from the collection
-		public void Remove(CameraModel CameraModel)
+		public void Remove(Camera CameraModel)
 		{
 			InnerList.Remove(CameraModel);
 		}
 
         // Get camera with specified name
-        public CameraModel GetCamera(string name, CameraGroupModel parent)
+        public Camera GetCamera(string name, Gate parent)
         {
             // find the camera
-            foreach (CameraModel camera in InnerList)
+            foreach (Camera camera in InnerList)
             {
-                if ((camera.Name == name) && (camera.Group == parent))
+                if ((camera.Name == name) )
                     return camera;
             }
             return null;
         }
 
 		// Get CameraModel with specified ID
-		public CameraModel GetCameraModel(int CameraModelID)
+		public Camera GetCameraModel(int CameraModelID)
 		{
 			// find the CameraModel
-			foreach (CameraModel CameraModel in InnerList)
+			foreach (Camera CameraModel in InnerList)
 			{
 				if (CameraModel.ID == CameraModelID)
 					return CameraModel;
