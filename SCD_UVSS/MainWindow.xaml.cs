@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS
@@ -11,14 +12,15 @@ namespace SCD_UVSS
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static bool _windowStateFullScreen = true;
 
-        private CameraListViewModel cameraListViewModel;
-        
+        private MainTabViewModel _mainTabViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.cameraListViewModel = new CameraListViewModel();
-            this.CameraViews.DataContext = this.cameraListViewModel;
+            this._mainTabViewModel = new MainTabViewModel();
+            this.mainTabCtrl.DataContext = this._mainTabViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -57,9 +59,20 @@ namespace SCD_UVSS
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Escape)
-                this.AppWindow.WindowState = WindowState.Normal;
-                this.AppWindow.WindowStyle = WindowStyle.ThreeDBorderWindow;
+            if (e.Key == Key.Escape)
+            {
+                if (_windowStateFullScreen)
+                {
+                    this.AppWindow.WindowState = WindowState.Normal;
+                    this.AppWindow.WindowStyle = WindowStyle.ThreeDBorderWindow;
+                }
+                else
+                {
+                    this.AppWindow.WindowState = WindowState.Maximized;
+                    this.AppWindow.WindowStyle = WindowStyle.SingleBorderWindow;
+                }
+                _windowStateFullScreen = !_windowStateFullScreen;
+            }
         }
     }
     

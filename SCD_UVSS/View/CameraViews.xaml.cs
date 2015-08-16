@@ -11,5 +11,6 @@ namespace SCD_UVSS.View
         {
             InitializeComponent();
         }
+
     }
 }

@@ -36,5 +36,10 @@ namespace SCD_UVSS.Dal
             return this._databaseProvider.AddVehicleEntryImges(vehicleImagesModel);
         }
 
+        public bool AddGateInfo(Gate gate)
+        {
+            return this._databaseProvider.AddGateInfo(gate);
+        }
+
     }
 }

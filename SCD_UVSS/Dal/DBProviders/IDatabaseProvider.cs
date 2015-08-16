@@ -22,6 +22,6 @@ namespace SCD_UVSS.Dal.DBProviders
 
         bool AddVehicleEntryImges(VehicleImagesModel vehicleImagesModel);
 
-        bool AddGateInfo();
+        bool AddGateInfo(Gate gate);
     }
 }

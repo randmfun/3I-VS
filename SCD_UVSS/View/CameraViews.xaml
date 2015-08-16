@@ -6,13 +6,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <ScrollViewer x:Name="MyScrollViewer" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled">
         <ItemsControl ItemsSource="{Binding Cameras}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
-                </ItemsPanelTemplate>
+                    <StackPanel/>
+                    </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            
         </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -77,8 +77,17 @@
     <Compile Include="Model\VehicleInfoModel.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="ViewModel\CameraListViewModel.cs" />
+    <Compile Include="ViewModel\GateSetupViewModel.cs" />
+    <Compile Include="ViewModel\MainTabViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\CameraViews.xaml.cs">
       <DependentUpon>CameraViews.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GateView.xaml.cs">
+      <DependentUpon>GateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainTabView.xaml.cs">
+      <DependentUpon>MainTabView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +102,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CameraViews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

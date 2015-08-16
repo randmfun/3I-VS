@@ -44,6 +44,11 @@ namespace UnitTest
             throw new NotImplementedException();
         }
 
+        public bool AddGateInfo(Gate gate)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AddGateInfo()
         {
             throw new NotImplementedException();

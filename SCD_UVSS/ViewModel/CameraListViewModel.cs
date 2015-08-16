@@ -9,7 +9,6 @@ namespace SCD_UVSS.ViewModel
     {
         private ObservableCollection<Image>  _buttons = new ObservableCollection<Image>();
 
-
         public CameraListViewModel()
         {
             for (int i=0; i < 10; i++)
@@ -22,8 +21,8 @@ namespace SCD_UVSS.ViewModel
                 logo.EndInit();
                 
                 imageViewer.Source = logo;
-                imageViewer.Height = 128;
-                imageViewer.Width = 128;
+                imageViewer.Height = 428;
+                imageViewer.Width = 428;
                
                 _buttons.Add(imageViewer);
             }
@@ -49,9 +48,5 @@ namespace SCD_UVSS.ViewModel
             }
             
         }
-
-        
-        
-        
     }
 }

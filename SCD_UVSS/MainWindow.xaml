@@ -4,12 +4,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:view="clr-namespace:SCD_UVSS.View"
         Title="MainWindow" Height="350" Width="525" 
-        WindowStyle="None" ResizeMode="NoResize"  
-        WindowStartupLocation="CenterScreen" WindowState="Maximized" KeyDown="MainWindow_OnKeyDown">
+        WindowStyle="SingleBorderWindow" ResizeMode="NoResize"  
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized" 
+        KeyDown="MainWindow_OnKeyDown">
     <Grid>
         <StackPanel>
-        <Button Height="25" Content="Add" Click="Button_Click"></Button>
-            <view:CameraViews x:Name="CameraViews"/>
+            <view:MainTabView x:Name="mainTabCtrl" DataContext="MainTabViewModel">
+            </view:MainTabView>
         </StackPanel>
     </Grid>
 </Window>
