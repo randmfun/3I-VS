@@ -17,7 +17,7 @@
             <TabControl.ContentTemplate>
                 <!-- this is the body of the TabItem template-->
                 <DataTemplate>
-                    <UserControl Content="{Binding Content}"></UserControl>
+                    <UserControl Content="{Binding ContentControl}"></UserControl>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS.View
 {
@@ -7,9 +8,16 @@ namespace SCD_UVSS.View
     /// </summary>
     public partial class CameraViews : UserControl
     {
+        public CameraListViewModel CameraListViewModel { get; set; }
+
         public CameraViews()
         {
             InitializeComponent();
+
+            this.CameraListViewModel = new CameraListViewModel();
+
+            this.DataContext = this.CameraListViewModel;
+
         }
 
     }

@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 
 namespace SCD_UVSS.ViewModel
 {
-    class CameraListViewModel
+    public class CameraListViewModel
     {
         private ObservableCollection<Image>  _buttons = new ObservableCollection<Image>();
 

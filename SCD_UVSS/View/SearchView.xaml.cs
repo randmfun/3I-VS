@@ -11,26 +11,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SCD_UVSS.Dal;
-using SCD_UVSS.Dal.DBProviders;
 using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS.View
 {
     /// <summary>
-    /// Interaction logic for GateView.xaml
+    /// Interaction logic for SearchView.xaml
     /// </summary>
-    public partial class GateView : UserControl
+    public partial class SearchView : UserControl
     {
-        public GateSetupViewModel GateSetupViewModel { get; set; }
+        public SearchViewModel SearchViewModel { get; set; }
         
-        public GateView()
+        public SearchView()
         {
             InitializeComponent();
 
-            this.GateSetupViewModel = new GateSetupViewModel(new DataAccessLayer(new MySqlDatabaseProvider()));
+            this.SearchViewModel = new SearchViewModel();
 
-            this.DataContext = this.GateSetupViewModel;
+            this.DataContext = this.SearchViewModel;
         }
     }
 }

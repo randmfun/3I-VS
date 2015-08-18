@@ -12,27 +12,39 @@ namespace SCD_UVSS.ViewModel
 {
     public class MainTabViewModel
     {
-        public ObservableCollection<TabItem> Tabs { get; set; }
+        public ObservableCollection<TabItem> _tabs = new ObservableCollection<TabItem>();
+        
+        public ObservableCollection<TabItem> Tabs
+        {
+            get { return this._tabs; }
+            set { this._tabs = value; }
+        }
+        
+        public SearchView SearchViewCtrl { get; set; }
+
+        public CameraViews CameraViews { get; set; }
+       
+        public GateView GateViewCtrl { get; set; }
+        
 
         public MainTabViewModel()
         {
             Tabs = new ObservableCollection<TabItem>();
 
-            var cameraViewsCtrl = new CameraViews();
-            cameraViewsCtrl.DataContext = new CameraListViewModel();
+            this.CameraViews = new CameraViews();
+            this.GateViewCtrl = new GateView();
+            this.SearchViewCtrl = new SearchView();
 
-            var gateViewCtrl = new GateView();
-            gateViewCtrl.DataContext = new GateSetupViewModel(new DataAccessLayer(new MySqlDatabaseProvider()));
-
-            Tabs.Add(new TabItem {Header = "Camera View", Content = cameraViewsCtrl});
-            Tabs.Add(new TabItem { Header = "Gate Setup", Content = gateViewCtrl});
+            this._tabs.Add(new TabItem {Header = "Camera View", ContentControl = this.CameraViews});
+            this._tabs.Add(new TabItem { Header = "Gate Setup", ContentControl = this.GateViewCtrl});
+            this._tabs.Add(new TabItem { Header = "Search Setup", ContentControl = this.SearchViewCtrl});
         }
 
         public sealed class TabItem
         {
             public string Header { get; set; }
 
-            public UserControl Content { get; set; }
+            public UserControl ContentControl { get; set; }
         }
     }
 }
