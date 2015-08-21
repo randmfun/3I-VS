@@ -25,10 +25,5 @@
         {
             get; set;
         }
-
-        public string SecondIpAddress
-        {
-            get; set;
-        }
     }
 }

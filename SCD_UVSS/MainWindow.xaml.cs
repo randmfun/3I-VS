@@ -23,18 +23,17 @@ namespace SCD_UVSS
         {
             try
             {
-                logger.Info("Application Launching!!");
+                logger.Info("Application Starting!!");
 
                 InitializeComponent();
                 this._mainTabViewModel = new MainTabViewModel();
                 this.mainTabCtrl.DataContext = this._mainTabViewModel;
 
-                logger.Info("Application Launched!!");
+                logger.Info("Application Started!!");
                 
             }
             catch (Exception ex)
             {
-                logger.Warn("... and a warning.");
                 logger.Error("Application Crashed.");
                 logger.Fatal(ex.Message);
             }

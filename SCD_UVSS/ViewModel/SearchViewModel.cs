@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
+using SCD_UVSS.Dal;
 
 namespace SCD_UVSS.ViewModel
 {
     public class SearchViewModel
     {
+        private readonly DataAccessLayer _dataAccessLayer;
+        public SearchViewModel(DataAccessLayer dataAccessLayer)
+        {
+            this._dataAccessLayer = dataAccessLayer;
+        }
+
         public TimeSpanViewModel StartTimeSpanViewModel { get; set; }
         public TimeSpanViewModel EndTimeSpanViewModel { get; set; }
 
@@ -23,14 +31,14 @@ namespace SCD_UVSS.ViewModel
             get; set;
         }
 
-       public ObservableCollection<SearchData> SearchDataList
+       public ObservableCollection<SearchDataItem> SearchDataList
         {
             get; set;
         }
             
         public SearchViewModel()
         {
-            this.SearchDataList = new ObservableCollection<SearchData>();
+            this.SearchDataList = new ObservableCollection<SearchDataItem>();
             this.StartTimeSpanViewModel = new TimeSpanViewModel();
             this.EndTimeSpanViewModel = new TimeSpanViewModel();
 
@@ -40,20 +48,24 @@ namespace SCD_UVSS.ViewModel
 
             this.VehicleNumber = "some number";
 
-            this.SearchDataList.Add(new SearchData() {ID = "10", Date = DateTime.Now});
-            this.SearchDataList.Add(new SearchData() { ID = "10", Date = DateTime.Now });
+            this.SearchDataList.Add(new SearchDataItem() {ID = "10", Date = DateTime.Now});
+            this.SearchDataList.Add(new SearchDataItem() { ID = "10", Date = DateTime.Now });
         }
 
         public void Search(object arg)
         {
-            
+            this.SearchDataList.Add(new SearchDataItem() { ID = "10", Date = DateTime.Now });
+            this.SearchDataList.Add(new SearchDataItem() { ID = "10", Date = DateTime.Now });
         }
     }
 
-    public class SearchData
+    public class SearchDataItem
     {
-        public SearchData()
+        public ICommand ShowImage { get; set; }
+
+        public SearchDataItem()
         {
+            this.ShowImage = new RelayCommand(this.ShowImageCallback);
             this.id = "1";
             this.date = DateTime.Now;
         }
@@ -71,6 +83,11 @@ namespace SCD_UVSS.ViewModel
         {
             get { return date; }
             set { date = value; }
+        }
+
+        public void ShowImageCallback(object args)
+        {
+            MessageBox.Show("Image Window would come up for" + ID);
         }
     }
 }

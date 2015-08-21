@@ -46,6 +46,8 @@
     <Compile Include="StubDbProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDataAccessLayer.cs" />
+    <Compile Include="TestGateProviders.cs" />
+    <Compile Include="TestRecordManger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SCD_UVSS\SCD_UVSS.csproj">

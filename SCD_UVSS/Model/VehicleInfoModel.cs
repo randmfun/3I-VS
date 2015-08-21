@@ -31,17 +31,17 @@ namespace SCD_UVSS.Model
             this._vehicleBasicInfo = vehicleBasicInfo;
         }
 
-        public Guid ReferenceId
+        public Guid ForeignKeyId
         {
             get { return this._vehicleBasicInfo.UniqueId; }
         }
 
         public BitmapImage DriverImage { get; set; }
 
-        public BitmapImage FrontImage { get; set; }
+        public BitmapImage VehicleOverallImage { get; set; }
 
-        public BitmapImage RearImage { get; set; }
+        public BitmapImage NumberPlateImage { get; set; }
 
-        public BitmapImage UnderCarriageImage { get; set; }
+        public BitmapImage ChaisisImage { get; set; }
     }
 }

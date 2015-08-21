@@ -9,7 +9,7 @@
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Width" Value="45"/>
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Height" Value="30"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -18,6 +18,8 @@
             <ComboBox ItemsSource="{Binding Hours}" SelectedValue="{Binding SelectedHour}"/>
             <TextBlock Text="MM:" VerticalAlignment="Center" Margin="5"/>
             <ComboBox ItemsSource="{Binding Minutes}" SelectedValue="{Binding SelectedMinute}"/>
+            <ComboBox ItemsSource="{Binding Sessions}" SelectedValue="{Binding SelectedSession}"/>
+            
         </StackPanel>
     </Grid>
 </UserControl>

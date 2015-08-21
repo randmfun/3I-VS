@@ -5,49 +5,80 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:SCD_UVSS.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="450">
+             >
+    <UserControl.Resources>
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="10,5"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="200"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="150"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0">
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Vehicle Number: "></TextBlock>
-                <TextBox Width="100" Text="{Binding VehicleNumber}"></TextBox>
-            </StackPanel>
-            
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Margin="10,5" Text="From:"/>
-                    <DatePicker Width="100" SelectedDate="{Binding StartDateTime}"></DatePicker>
-                    <view:TimeSpan DataContext="{Binding StartTimeSpanViewModel}"></view:TimeSpan>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Margin="10,5" Text="To :"/>
-                    <DatePicker Width="100" SelectedDate="{Binding EndDateTime}"></DatePicker>
-                    <view:TimeSpan DataContext="{Binding EndTimeSpanViewModel}"></view:TimeSpan>
-                </StackPanel>
-            </StackPanel>
-            
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <Button Content="Search" Margin="10" Height="40" Width="100" Command="{Binding SearchCommand}"></Button>
-        </StackPanel>
+        <GroupBox Header="Search Details.." Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                <StackPanel Margin="20,0" Grid.Column="0" Grid.Row="0">
+                    
+                    <!--    Vehicle Number -->
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Vehicle Number: " FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                        <TextBox Margin="10,0" Width="100" Height="30" VerticalContentAlignment="Center" Text="{Binding VehicleNumber}"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+
+                        <!--    Start Date and Time -->
+                        <GroupBox Header="Start Date/Time">
+                            <StackPanel Orientation="Horizontal">
+                                <DatePicker SelectedDate="{Binding StartDateTime}"></DatePicker>
+                                <view:TimeSpan DataContext="{Binding StartTimeSpanViewModel}"></view:TimeSpan>
+                            </StackPanel>
+                        </GroupBox>
+                        
+                        <!--    End Date and Time -->
+                        <GroupBox Header="End Date/Time">
+                            <StackPanel Orientation="Horizontal">
+                                <DatePicker SelectedDate="{Binding EndDateTime}"></DatePicker>
+                                <view:TimeSpan DataContext="{Binding EndTimeSpanViewModel}"></view:TimeSpan>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </StackPanel>
+                
+                <!--    Search Button   -->
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <Button Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Margin="10, 50" Height="60" Width="100" FontWeight="Bold" Command="{Binding SearchCommand}"/>
+                </StackPanel>
+            </Grid>
+
+        </GroupBox>
+
+        <!--    Grid Results  -->
+        <DataGrid Grid.Row="1" Margin="10"
                   ColumnWidth="*"
-                  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                   CanUserAddRows="False" CanUserReorderColumns="False"
                   IsReadOnly="True" AutoGenerateColumns="False"
                   ItemsSource="{Binding SearchDataList}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" MinWidth="100" Width="Auto"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" MinWidth="100" Width="Auto"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="100"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}"  Width="100"/>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Margin="5" Command="{Binding ShowImage}">View</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using SCD_UVSS.Model;
 
-namespace SCD_UVSS.SystemInput
+namespace SCD_UVSS.SystemInput.Camera
 {
-    public class DlinkIpCameraProvider
+    public class DlinkIpCameraProvider: ICameraProvider
     {
-        public readonly CameraModel _cameraModel;
+        public CameraModel CameraModel { get; set; }
 
         public DlinkIpCameraProvider(CameraModel cameraModel)
         {
-            this._cameraModel = cameraModel;
+            this.CameraModel = cameraModel;
         }
 
         public byte[] Read()
@@ -24,7 +19,7 @@ namespace SCD_UVSS.SystemInput
             {
                 //var source = "http://localhost:5000/api/v1/boards/image";
 
-                var source = this._cameraModel.IpAddress;
+                var source = this.CameraModel.IpAddress;
                 var req = (HttpWebRequest) WebRequest.Create(source);
 
                 using (var resp = req.GetResponse())
