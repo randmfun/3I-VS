@@ -12,9 +12,23 @@ namespace SCD_UVSS.ViewModel
     public class SearchViewModel
     {
         private readonly DataAccessLayer _dataAccessLayer;
-        public SearchViewModel(DataAccessLayer dataAccessLayer)
+
+        public SearchViewModel(DataAccessLayer dataAccessLayer):this()
         {
             this._dataAccessLayer = dataAccessLayer;
+        }
+        
+        private SearchViewModel()
+        {
+            this.SearchDataList = new ObservableCollection<SearchDataItem>();
+            this.StartTimeSpanViewModel = new TimeSpanViewModel();
+            this.EndTimeSpanViewModel = new TimeSpanViewModel();
+
+            this.SearchCommand = new RelayCommand(Search);
+            this.StartDateTime = DateTime.Now;
+            this.EnDateTime = DateTime.Now;
+
+            this.VehicleNumber = "some number";
         }
 
         public TimeSpanViewModel StartTimeSpanViewModel { get; set; }
@@ -36,21 +50,7 @@ namespace SCD_UVSS.ViewModel
             get; set;
         }
             
-        public SearchViewModel()
-        {
-            this.SearchDataList = new ObservableCollection<SearchDataItem>();
-            this.StartTimeSpanViewModel = new TimeSpanViewModel();
-            this.EndTimeSpanViewModel = new TimeSpanViewModel();
 
-            this.SearchCommand = new RelayCommand(Search);
-            this.StartDateTime = DateTime.Now;
-            this.EnDateTime = DateTime.Now;
-
-            this.VehicleNumber = "some number";
-
-            this.SearchDataList.Add(new SearchDataItem() {ID = "10", Date = DateTime.Now});
-            this.SearchDataList.Add(new SearchDataItem() { ID = "10", Date = DateTime.Now });
-        }
 
         public void Search(object arg)
         {

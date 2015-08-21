@@ -48,6 +48,8 @@
     <Compile Include="TestDataAccessLayer.cs" />
     <Compile Include="TestGateProviders.cs" />
     <Compile Include="TestRecordManger.cs" />
+    <Compile Include="ViewModel\TestSearchViewModel.cs" />
+    <Compile Include="ViewModel\TestTimeSpanViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SCD_UVSS\SCD_UVSS.csproj">

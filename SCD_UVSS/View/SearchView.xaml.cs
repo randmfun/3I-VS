@@ -26,7 +26,7 @@ namespace SCD_UVSS.View
         {
             InitializeComponent();
 
-            this.SearchViewModel = new SearchViewModel();
+            this.SearchViewModel = new SearchViewModel(null);
 
             this.DataContext = this.SearchViewModel;
         }
