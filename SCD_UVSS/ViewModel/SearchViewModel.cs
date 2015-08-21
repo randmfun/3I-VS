@@ -9,6 +9,9 @@ namespace SCD_UVSS.ViewModel
 {
     public class SearchViewModel
     {
+        public TimeSpanViewModel StartTimeSpanViewModel { get; set; }
+        public TimeSpanViewModel EndTimeSpanViewModel { get; set; }
+
         public ICommand SearchCommand { get; set; }
 
         public string VehicleNumber { get; set; }
@@ -28,6 +31,8 @@ namespace SCD_UVSS.ViewModel
         public SearchViewModel()
         {
             this.SearchDataList = new ObservableCollection<SearchData>();
+            this.StartTimeSpanViewModel = new TimeSpanViewModel();
+            this.EndTimeSpanViewModel = new TimeSpanViewModel();
 
             this.SearchCommand = new RelayCommand(Search);
             this.StartDateTime = DateTime.Now;

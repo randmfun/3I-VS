@@ -35,7 +35,7 @@ namespace SCD_UVSS.Model
             get; set;
         }
 
-        public List<Camera> Cameras
+        public List<CameraModel> Cameras
         {
             get; set;
         }

@@ -1,10 +1,10 @@
 ﻿namespace SCD_UVSS.Model
 {
-    public class Camera
+    public class CameraModel
     {
         private string description = "";
 
-        public Camera()
+        public CameraModel()
         {
             ID = 0;
         }
@@ -19,10 +19,16 @@
             set { description = value; }
         }
 
+        public string IsDualCam { get; set; }
+
         public string IpAddress
         {
             get; set;
         }
 
+        public string SecondIpAddress
+        {
+            get; set;
+        }
     }
 }

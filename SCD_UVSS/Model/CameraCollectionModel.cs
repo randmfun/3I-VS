@@ -5,31 +5,31 @@ namespace SCD_UVSS.Model
     public class CameraCollectionModel: CollectionBase
     {
 		// Get came at the specified index
-		public Camera this[int index]
+		public CameraModel this[int index]
 		{
 			get
 			{
-				return ((Camera) InnerList[index]);
+				return ((CameraModel) InnerList[index]);
 			}
 		}
 
 		// Add new CameraModel to the collection
-		public void Add(Camera CameraModel)
+		public void Add(CameraModel CameraModel)
 		{
 			InnerList.Add(CameraModel);
 		}
 
 		// Remove CameraModel from the collection
-		public void Remove(Camera CameraModel)
+		public void Remove(CameraModel CameraModel)
 		{
 			InnerList.Remove(CameraModel);
 		}
 
-        // Get camera with specified name
-        public Camera GetCamera(string name, Gate parent)
+        // Get CameraModel with specified name
+        public CameraModel GetCamera(string name, Gate parent)
         {
-            // find the camera
-            foreach (Camera camera in InnerList)
+            // find the CameraModel
+            foreach (CameraModel camera in InnerList)
             {
                 if ((camera.Name == name) )
                     return camera;
@@ -38,10 +38,10 @@ namespace SCD_UVSS.Model
         }
 
 		// Get CameraModel with specified ID
-		public Camera GetCameraModel(int CameraModelID)
+		public CameraModel GetCameraModel(int CameraModelID)
 		{
 			// find the CameraModel
-			foreach (Camera CameraModel in InnerList)
+			foreach (CameraModel CameraModel in InnerList)
 			{
 				if (CameraModel.ID == CameraModelID)
 					return CameraModel;

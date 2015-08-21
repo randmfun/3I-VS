@@ -28,8 +28,8 @@ namespace SCD_UVSS.ViewModel
             
             this.GateSetupItems = new ObservableCollection<GateSetupItem>
             {
-                new GateCameraSetupItem(new Camera()),
-                new GateCameraSetupItem(new Camera()),
+                new GateCameraSetupItem(new CameraModel()),
+                new GateCameraSetupItem(new CameraModel()),
                 new GateComPortSetupItem("Com Port")
             };
         }
@@ -42,7 +42,7 @@ namespace SCD_UVSS.ViewModel
             {
                 if (gateSetupItem is GateCameraSetupItem)
                 {
-                    gate.Cameras.Add(((GateCameraSetupItem)gateSetupItem).Camera);
+                    gate.Cameras.Add(((GateCameraSetupItem)gateSetupItem).CameraModel);
                 }
                 else
                 {
@@ -66,9 +66,9 @@ namespace SCD_UVSS.ViewModel
 
     public class GateCameraSetupItem : GateSetupItem
     {
-        public Camera Camera { get; set; }
+        public CameraModel CameraModel { get; set; }
 
-        public GateCameraSetupItem(Camera camera) : base(camera.Name)
+        public GateCameraSetupItem(CameraModel cameraModel) : base(cameraModel.Name)
         {
             
         }

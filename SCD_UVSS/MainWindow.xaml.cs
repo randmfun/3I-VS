@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using log4net;
 using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS
@@ -12,15 +13,31 @@ namespace SCD_UVSS
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(MainWindow));
+        
         public static bool _windowStateFullScreen = true;
 
         private MainTabViewModel _mainTabViewModel;
 
         public MainWindow()
         {
-            InitializeComponent();
-            this._mainTabViewModel = new MainTabViewModel();
-            this.mainTabCtrl.DataContext = this._mainTabViewModel;
+            try
+            {
+                logger.Info("Application Launching!!");
+
+                InitializeComponent();
+                this._mainTabViewModel = new MainTabViewModel();
+                this.mainTabCtrl.DataContext = this._mainTabViewModel;
+
+                logger.Info("Application Launched!!");
+                
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("... and a warning.");
+                logger.Error("Application Crashed.");
+                logger.Fatal(ex.Message);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
