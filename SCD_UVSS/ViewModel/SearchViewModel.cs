@@ -6,6 +6,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using SCD_UVSS.Dal;
+using SCD_UVSS.Model;
+using SCD_UVSS.View;
 
 namespace SCD_UVSS.ViewModel
 {
@@ -13,7 +15,9 @@ namespace SCD_UVSS.ViewModel
     {
         private readonly DataAccessLayer _dataAccessLayer;
 
-        public SearchViewModel(DataAccessLayer dataAccessLayer):this()
+        public ICommand SearchCommand { get; set; }
+
+        public SearchViewModel(DataAccessLayer dataAccessLayer) : this()
         {
             this._dataAccessLayer = dataAccessLayer;
         }
@@ -28,13 +32,12 @@ namespace SCD_UVSS.ViewModel
             this.StartDateTime = DateTime.Now;
             this.EnDateTime = DateTime.Now;
 
-            this.VehicleNumber = "some number";
+            this.VehicleNumber = "";
         }
 
         public TimeSpanViewModel StartTimeSpanViewModel { get; set; }
         public TimeSpanViewModel EndTimeSpanViewModel { get; set; }
 
-        public ICommand SearchCommand { get; set; }
 
         public string VehicleNumber { get; set; }
 
@@ -44,18 +47,24 @@ namespace SCD_UVSS.ViewModel
         {
             get; set;
         }
-
-       public ObservableCollection<SearchDataItem> SearchDataList
+        public ObservableCollection<SearchDataItem> SearchDataList
         {
             get; set;
         }
-            
-
 
         public void Search(object arg)
         {
-            this.SearchDataList.Add(new SearchDataItem() { ID = "10", Date = DateTime.Now });
-            this.SearchDataList.Add(new SearchDataItem() { ID = "10", Date = DateTime.Now });
+            var vehicle_no = "TN 0J 07656";
+
+            for (int i = 211; i < 222; i++)
+            {
+                this.SearchDataList.Add(new SearchDataItem()
+                {
+                    ID = i.ToString(),
+                    Date = DateTime.Now,
+                    VehicleNumber = vehicle_no
+                });
+            }
         }
     }
 
@@ -85,9 +94,15 @@ namespace SCD_UVSS.ViewModel
             set { date = value; }
         }
 
+        public string VehicleNumber
+        {
+            get; set;
+        }
+
         public void ShowImageCallback(object args)
         {
-            MessageBox.Show("Image Window would come up for" + ID);
+            var camImagesViewWindow = new CameraImagesViewWindow();
+            camImagesViewWindow.ShowDialog();
         }
     }
 }

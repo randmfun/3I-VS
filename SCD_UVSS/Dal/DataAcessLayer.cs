@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SCD_UVSS.Dal.DBProviders;
 using SCD_UVSS.Model;
+using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS.Dal
 {
@@ -39,6 +40,11 @@ namespace SCD_UVSS.Dal
         public bool AddGateInfo(Gate gate)
         {
             return this._databaseProvider.AddGateInfo(gate);
+        }
+
+        public void Search(SearchViewModel searchViewModel)
+        {
+            
         }
 
     }

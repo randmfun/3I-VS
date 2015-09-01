@@ -93,11 +93,17 @@
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
     <Compile Include="ViewModel\TimeSpanViewModel.cs" />
+    <Compile Include="View\CameraImagesViewWindow.xaml.cs">
+      <DependentUpon>CameraImagesViewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CameraViews.xaml.cs">
       <DependentUpon>CameraViews.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GateView.xaml.cs">
       <DependentUpon>GateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainCameraView.xaml.cs">
+      <DependentUpon>MainCameraView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainTabView.xaml.cs">
       <DependentUpon>MainTabView.xaml</DependentUpon>
@@ -120,11 +126,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\CameraImagesViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CameraViews.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainCameraView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

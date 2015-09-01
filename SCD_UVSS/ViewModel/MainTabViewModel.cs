@@ -35,9 +35,10 @@ namespace SCD_UVSS.ViewModel
             this.GateViewCtrl = new GateView();
             this.SearchViewCtrl = new SearchView();
 
-            this._tabs.Add(new TabItem {Header = "CameraModel View", ContentControl = this.CameraViews});
+            this._tabs.Add(new TabItem { Header = "Camera View", ContentControl = new MainCameraView() });
             this._tabs.Add(new TabItem { Header = "Gate Setup", ContentControl = this.GateViewCtrl});
             this._tabs.Add(new TabItem { Header = "Search Setup", ContentControl = this.SearchViewCtrl});
+            this._tabs.Add(new TabItem { Header = "Test View", ContentControl = this.CameraViews });
         }
 
         public sealed class TabItem

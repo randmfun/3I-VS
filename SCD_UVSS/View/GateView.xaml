@@ -7,24 +7,31 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <ItemsControl ItemsSource="{Binding GateSetupItems}" Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ItemsControl Margin="10" ItemsSource="{Binding GateSetupItems}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel></StackPanel>                    
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5,5">
-                        <Label Content="{Binding Label}"></Label>
-                        <TextBox Text="192.22.1.108"></TextBox>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Label Content="{Binding Label}" Width="100" Height="30" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBox Text="{Binding Address}" Width="150" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            
         </ItemsControl>
-        <Button Command="{Binding SetButtonClickCmdCommand}" Grid.Row="1" Height="55" Width="100" Content="Save"></Button>
+        <Button Grid.Column="0" Grid.ColumnSpan="1"
+                Command="{Binding SetButtonClickCmdCommand}" Grid.Row="1" Height="55" Width="100" Content="Save"></Button>
     </Grid>
 </UserControl>

@@ -28,9 +28,12 @@ namespace SCD_UVSS.ViewModel
             
             this.GateSetupItems = new ObservableCollection<GateSetupItem>
             {
-                new GateCameraSetupItem(new CameraModel()),
-                new GateCameraSetupItem(new CameraModel()),
-                new GateComPortSetupItem("Com Port")
+                new GateCameraSetupItem(new CameraModel(){Name = "Chasis One"}),
+                new GateCameraSetupItem(new CameraModel(){Name = "Chasis Two"}),
+                new GateCameraSetupItem(new CameraModel(){Name = "Top View"}),
+                new GateCameraSetupItem(new CameraModel(){Name = "Driver Image"}),
+                new GateCameraSetupItem(new CameraModel(){Name = "Licence Plate"}),
+                new GateComPortSetupItem("COM Port")
             };
         }
 
@@ -58,6 +61,8 @@ namespace SCD_UVSS.ViewModel
     {
         public string Label { get; set; }
 
+        public string Address { get; set; }
+
         public GateSetupItem(string label)
         {
             this.Label = label;
@@ -70,7 +75,7 @@ namespace SCD_UVSS.ViewModel
 
         public GateCameraSetupItem(CameraModel cameraModel) : base(cameraModel.Name)
         {
-            
+            this.Address = "192.25.67.108";
         }
     }
 
@@ -78,7 +83,7 @@ namespace SCD_UVSS.ViewModel
     {
         public GateComPortSetupItem(string label) : base(label)
         {
-            
+            this.Address = "COM3";
         }
     }
 }
