@@ -42,10 +42,10 @@ namespace SCD_UVSS.Dal
             return this._databaseProvider.AddGateInfo(gate);
         }
 
-        public void Search(SearchViewModel searchViewModel)
+        public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
         {
-            
+            return this._databaseProvider.Search(dbSearchRequestModel);
         }
-
     }
+
 }

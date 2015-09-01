@@ -19,7 +19,7 @@ namespace UnitTest.ViewModel
             Assert.AreEqual(searchViewModel.StartTimeSpanViewModel.SelectedSession, "AM");
             
             Assert.AreEqual(searchViewModel.StartDateTime.Hour, DateTime.Now.Hour);
-            Assert.AreEqual(searchViewModel.EnDateTime.Hour, DateTime.Now.Hour);
+            Assert.AreEqual(searchViewModel.EndDateTime.Hour, DateTime.Now.Hour);
             Assert.NotNull(searchViewModel.SearchDataList);
         }
 

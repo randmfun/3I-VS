@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using SCD_UVSS.Dal;
+using SCD_UVSS.Dal.DBProviders;
 using SCD_UVSS.Model;
 using SCD_UVSS.View;
 
@@ -30,7 +31,7 @@ namespace SCD_UVSS.ViewModel
 
             this.SearchCommand = new RelayCommand(Search);
             this.StartDateTime = DateTime.Now;
-            this.EnDateTime = DateTime.Now;
+            this.EndDateTime = DateTime.Now;
 
             this.VehicleNumber = "";
         }
@@ -43,10 +44,8 @@ namespace SCD_UVSS.ViewModel
 
         public DateTime StartDateTime { get; set; }
 
-        public DateTime EnDateTime
-        {
-            get; set;
-        }
+        public DateTime EndDateTime { get; set;}
+
         public ObservableCollection<SearchDataItem> SearchDataList
         {
             get; set;
@@ -54,15 +53,29 @@ namespace SCD_UVSS.ViewModel
 
         public void Search(object arg)
         {
-            var vehicle_no = "TN 0J 07656";
+            var startDateWithTime = new DateTime(this.StartDateTime.Year, this.StartDateTime.Month, this.StartDateTime.Day, 
+                int.Parse(this.StartTimeSpanViewModel.SelectedHour), int.Parse(this.StartTimeSpanViewModel.SelectedMinute), 0);
 
-            for (int i = 211; i < 222; i++)
+            var endDateWithTime = new DateTime(this.EndDateTime.Year, this.EndDateTime.Month, this.EndDateTime.Day,
+                int.Parse(this.EndTimeSpanViewModel.SelectedHour), int.Parse(this.EndTimeSpanViewModel.SelectedMinute), 0);
+
+            var dalSearchModel = new DbSearchRequestModel()
+            {
+                StaDateTime = startDateWithTime,
+                EnDateTime = endDateWithTime,
+                VehicleNumber = this.VehicleNumber
+            };
+
+            var listDbResultModels = this._dataAccessLayer.Search(dalSearchModel);
+
+            // Update the View
+            foreach (var dbSearchResultModel in listDbResultModels)
             {
                 this.SearchDataList.Add(new SearchDataItem()
                 {
-                    ID = i.ToString(),
-                    Date = DateTime.Now,
-                    VehicleNumber = vehicle_no
+                    ID = "Some id",
+                    Date = dbSearchResultModel.EntryDateTime,
+                    VehicleNumber = dbSearchResultModel.VehicleNumber
                 });
             }
         }

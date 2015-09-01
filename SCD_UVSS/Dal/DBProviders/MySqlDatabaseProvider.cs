@@ -47,5 +47,10 @@ namespace SCD_UVSS.Dal.DBProviders
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SCD_UVSS.Dal.DBProviders;
 using SCD_UVSS.Model;
 
-namespace UnitTest
+namespace SCD_UVSS.Dal.DBProviders
 {
-    public class StubDbProvider : IDatabaseProvider
+    public class MockDatabaseProvider: IDatabaseProvider
     {
         public bool CreateDatabase()
         {
@@ -51,12 +50,14 @@ namespace UnitTest
 
         public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
         {
-            throw new NotImplementedException();
-        }
+            var dbResult = new List<DbSearchResultModel>();
 
-        public bool AddGateInfo()
-        {
-            throw new NotImplementedException();
+            for (int i = 211; i < 222; i++)
+            {
+                dbResult.Add(new DbSearchResultModel() { EntryDateTime = DateTime.Now, VehicleNumber = "TN 07 J 5746" });
+            }
+
+            return dbResult;
         }
     }
 }

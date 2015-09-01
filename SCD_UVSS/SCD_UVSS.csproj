@@ -78,6 +78,7 @@
     <Compile Include="Controller\RecordManager.cs" />
     <Compile Include="Dal\DataAcessLayer.cs" />
     <Compile Include="Dal\DBProviders\IDatabaseProvider.cs" />
+    <Compile Include="Dal\DBProviders\MockDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MySqlDatabaseProvider.cs" />
     <Compile Include="Model\BlackListItem.cs" />
     <Compile Include="Model\VehicleInfoModel.cs" />

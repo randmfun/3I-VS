@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SCD_UVSS.Dal;
+using SCD_UVSS.Dal.DBProviders;
 using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS.View
@@ -26,7 +28,7 @@ namespace SCD_UVSS.View
         {
             InitializeComponent();
 
-            this.SearchViewModel = new SearchViewModel(null);
+            this.SearchViewModel = new SearchViewModel(new DataAccessLayer(new MockDatabaseProvider()));
 
             this.DataContext = this.SearchViewModel;
         }
