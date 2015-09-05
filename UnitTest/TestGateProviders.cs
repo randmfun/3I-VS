@@ -18,7 +18,7 @@ namespace UnitTest
         {
             const string expecetedCom = "COM1";
             const int expectedCamId = 1;
-            var gateModel = new Gate("one") { ComPort = new SerialPort(expecetedCom) };
+            var gateModel = new Gate("one") { ComPortName = expecetedCom };
             gateModel.Cameras.Add(new CameraModel(){ID = expectedCamId});
 
             var gateProvider = new GateProvider(gateModel);

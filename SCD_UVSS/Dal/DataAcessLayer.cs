@@ -42,6 +42,11 @@ namespace SCD_UVSS.Dal
             return this._databaseProvider.AddGateInfo(gate);
         }
 
+        public Gate ReadGateInfo()
+        {
+            return this._databaseProvider.ReadGateInfo();
+        }
+
         public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
         {
             return this._databaseProvider.Search(dbSearchRequestModel);

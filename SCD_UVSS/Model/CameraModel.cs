@@ -1,5 +1,8 @@
-﻿namespace SCD_UVSS.Model
+﻿using System;
+
+namespace SCD_UVSS.Model
 {
+    [Serializable]
     public class CameraModel
     {
         private string description = "";

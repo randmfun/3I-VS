@@ -1,19 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Dynamic;
+using System.IO;
+using System.IO.Ports;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Input;
+using log4net;
 using SCD_UVSS.Dal;
+using SCD_UVSS.helpers;
 using SCD_UVSS.Model;
+using SCD_UVSS.SystemInput.COM;
 
 namespace SCD_UVSS.ViewModel
 {
     public class GateSetupViewModel
     {
-        public ObservableCollection<GateSetupItem> GateSetupItems { get; set; }
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(GateSetupViewModel));
 
-        public ICommand SetButtonClickCmdCommand
+        public const string GateInfoFileName = "gateinfo.bin";
+
+        private ObservableCollection<GateSetupItem> _gateSetupItems;
+
+        public ObservableCollection<GateSetupItem> GateSetupItems
+        {
+            get
+            {
+                if (this._gateSetupItems == null)
+                    this._gateSetupItems = File.Exists(GateInfoFileName) ? 
+                        this.ConstructSavedGateSetupItems(this.ReaSavedGateInfo()) : this.ConstructDummyGateSetupItems();
+                return this._gateSetupItems;
+            } 
+            set { this._gateSetupItems = value; }
+        }
+
+        public ICommand SaveButtonClickCmdCommand
         {
             get; set;
         }
@@ -23,37 +46,77 @@ namespace SCD_UVSS.ViewModel
         public GateSetupViewModel(DataAccessLayer dataAccessLayer)
         {
             this._dataAccessLayer = dataAccessLayer;
+            this.SaveButtonClickCmdCommand = new RelayCommand(this.SaveButtonClickHandler);
+        }
+        
+        public void SaveButtonClickHandler(object arg)
+        {
+            var gate = this.ConstructGateModelFromGateSetupItems(this.GateSetupItems);
 
-            this.SetButtonClickCmdCommand = new RelayCommand(this.SetButtonClicked);
-            
-            this.GateSetupItems = new ObservableCollection<GateSetupItem>
-            {
-                new GateCameraSetupItem(new CameraModel(){Name = "Chasis One"}),
-                new GateCameraSetupItem(new CameraModel(){Name = "Chasis Two"}),
-                new GateCameraSetupItem(new CameraModel(){Name = "Top View"}),
-                new GateCameraSetupItem(new CameraModel(){Name = "Driver Image"}),
-                new GateCameraSetupItem(new CameraModel(){Name = "Licence Plate"}),
-                new GateComPortSetupItem("COM Port")
-            };
+            //this._dataAccessLayer.AddGateInfo(gate);
+            SaveGateInfo(gate);
         }
 
-        public void SetButtonClicked(object arg)
+        public bool SaveGateInfo(Gate gate)
         {
-            Gate gate = new Gate("Default_Gate");
+            return SerializeUtility.Save(gate, GateInfoFileName);
+        }
 
-            foreach (var gateSetupItem in GateSetupItems)
+        public Gate ReaSavedGateInfo()
+        {
+            return SerializeUtility.Read<Gate>(GateInfoFileName);
+        }
+
+        public Gate ConstructGateModelFromGateSetupItems(ObservableCollection<GateSetupItem> gateSetupItems)
+        {
+            var gate = new Gate("Default_Gate");
+
+            foreach (var gateSetupItem in gateSetupItems)
             {
                 if (gateSetupItem is GateCameraSetupItem)
                 {
                     gate.Cameras.Add(((GateCameraSetupItem)gateSetupItem).CameraModel);
                 }
-                else
+                else if (gateSetupItem is GateComPortSetupItem)
                 {
-                    
+                    gate.ComPortName = gateSetupItem.Address;
+                }
+                else if (gateSetupItem is GateNameSetupItem)
+                {
+                    gate.Name = gateSetupItem.Address;
                 }
             }
 
-            this._dataAccessLayer.AddGateInfo(gate);
+            return gate;
+        }
+
+        public ObservableCollection<GateSetupItem> ConstructSavedGateSetupItems(Gate gateInfo)
+        {
+            var gateSetupItems = new ObservableCollection<GateSetupItem>
+            {
+                new GateNameSetupItem(gateInfo.Name),
+                new GateComPortSetupItem(gateInfo.ComPortName)
+            };
+
+            foreach (var camera in gateInfo.Cameras)
+            {
+                gateSetupItems.Add(new GateCameraSetupItem(camera));
+            }
+
+            return gateSetupItems;
+        }
+        
+        private ObservableCollection<GateSetupItem> ConstructDummyGateSetupItems()
+        {
+            var gate = new Gate("Default_Gate");
+            gate.Cameras.Add(new CameraModel() { Name = "Chasis One" });
+            gate.Cameras.Add(new CameraModel() { Name = "Chasis Two" });
+            gate.Cameras.Add(new CameraModel() { Name = "Top View" });
+            gate.Cameras.Add(new CameraModel() { Name = "Driver Image" });
+            gate.Cameras.Add(new CameraModel() { Name = "Licence Plate" });
+            gate.ComPortName = "COM Port Name";
+
+            return ConstructSavedGateSetupItems(gate);
         }
     }
 
@@ -73,17 +136,32 @@ namespace SCD_UVSS.ViewModel
     {
         public CameraModel CameraModel { get; set; }
 
+        public new string Address 
+        {
+            get { return this.CameraModel.IpAddress; } 
+            set { this.CameraModel.IpAddress = value; }
+        }
+
         public GateCameraSetupItem(CameraModel cameraModel) : base(cameraModel.Name)
         {
-            this.Address = "192.25.67.108";
+            this.CameraModel = cameraModel;
         }
     }
 
     public class GateComPortSetupItem : GateSetupItem
     {
-        public GateComPortSetupItem(string label) : base(label)
+        public GateComPortSetupItem(string address) : base("COM Port")
         {
-            this.Address = "COM3";
+            this.Address = address;
+        }
+    }
+
+    public class GateNameSetupItem : GateSetupItem
+    {
+        public GateNameSetupItem(string address)
+            : base("Gate Name")
+        {
+            this.Address = address;
         }
     }
 }

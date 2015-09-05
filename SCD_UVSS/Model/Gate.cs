@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using SCD_UVSS.SystemInput.Camera;
@@ -9,6 +10,7 @@ namespace SCD_UVSS.Model
     /// <summary>
     /// Gate has a collection of Cameras
     /// </summary>
+    [Serializable]
     public class Gate
     {
         private string	name;
@@ -35,7 +37,7 @@ namespace SCD_UVSS.Model
 			set { description = value; }
 		}
 
-        public SerialPort ComPort
+        public string ComPortName
         {
             get; set;
         }
@@ -58,7 +60,7 @@ namespace SCD_UVSS.Model
         {
             this.Gate = gate;
 
-            this._comPortProvider = new ComPortProvider(this.Gate.ComPort);
+            this._comPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
             this._cameraProviders = this.Gate.Cameras.Select(x => new DlinkIpCameraProvider(x));
         }
 

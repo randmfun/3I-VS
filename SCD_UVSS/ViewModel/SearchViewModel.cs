@@ -25,7 +25,7 @@ namespace SCD_UVSS.ViewModel
         
         private SearchViewModel()
         {
-            this.SearchDataList = new ObservableCollection<SearchDataItem>();
+            this.SearchDataList = new ObservableCollection<SearchDataViewItem>();
             this.StartTimeSpanViewModel = new TimeSpanViewModel();
             this.EndTimeSpanViewModel = new TimeSpanViewModel();
 
@@ -37,16 +37,16 @@ namespace SCD_UVSS.ViewModel
         }
 
         public TimeSpanViewModel StartTimeSpanViewModel { get; set; }
+        
         public TimeSpanViewModel EndTimeSpanViewModel { get; set; }
-
-
+        
         public string VehicleNumber { get; set; }
 
         public DateTime StartDateTime { get; set; }
 
         public DateTime EndDateTime { get; set;}
 
-        public ObservableCollection<SearchDataItem> SearchDataList
+        public ObservableCollection<SearchDataViewItem> SearchDataList
         {
             get; set;
         }
@@ -71,7 +71,7 @@ namespace SCD_UVSS.ViewModel
             // Update the View
             foreach (var dbSearchResultModel in listDbResultModels)
             {
-                this.SearchDataList.Add(new SearchDataItem()
+                this.SearchDataList.Add(new SearchDataViewItem()
                 {
                     ID = "Some id",
                     Date = dbSearchResultModel.EntryDateTime,
@@ -81,30 +81,30 @@ namespace SCD_UVSS.ViewModel
         }
     }
 
-    public class SearchDataItem
+    public class SearchDataViewItem
     {
+        private string _id;
+        private DateTime _date;
+
         public ICommand ShowImage { get; set; }
 
-        public SearchDataItem()
+        public SearchDataViewItem()
         {
             this.ShowImage = new RelayCommand(this.ShowImageCallback);
-            this.id = "1";
-            this.date = DateTime.Now;
+            this._id = "1";
+            this._date = DateTime.Now;
         }
-
-        string id;
-        DateTime date;
-
+        
         public string ID
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public DateTime Date
         {
-            get { return date; }
-            set { date = value; }
+            get { return _date; }
+            set { _date = value; }
         }
 
         public string VehicleNumber

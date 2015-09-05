@@ -24,6 +24,8 @@ namespace SCD_UVSS.Dal.DBProviders
 
         bool AddGateInfo(Gate gate);
 
+        Gate ReadGateInfo();
+
         IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel);
     }
 

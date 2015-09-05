@@ -48,6 +48,11 @@ namespace SCD_UVSS.Dal.DBProviders
             throw new NotImplementedException();
         }
 
+        public Gate ReadGateInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
         {
             var dbResult = new List<DbSearchResultModel>();

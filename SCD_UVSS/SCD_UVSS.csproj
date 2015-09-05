@@ -80,6 +80,7 @@
     <Compile Include="Dal\DBProviders\IDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MockDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MySqlDatabaseProvider.cs" />
+    <Compile Include="helpers\SerializeUtility.cs" />
     <Compile Include="Model\BlackListItem.cs" />
     <Compile Include="Model\VehicleInfoModel.cs" />
     <Compile Include="SystemInput\COM\ComPortProvider.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="ViewModel\CameraListViewModel.cs" />
     <Compile Include="ViewModel\GateSetupViewModel.cs" />
+    <Compile Include="ViewModel\MainCameraViewModel.cs" />
     <Compile Include="ViewModel\MainTabViewModel.cs" />
     <Compile Include="ViewModel\NotifyPropertyChanged.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />

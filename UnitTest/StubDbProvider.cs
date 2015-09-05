@@ -49,6 +49,11 @@ namespace UnitTest
             throw new NotImplementedException();
         }
 
+        public Gate ReadGateInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
         {
             throw new NotImplementedException();
