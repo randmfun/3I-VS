@@ -17,7 +17,6 @@ namespace SCD_UVSS.View
             this.CameraListViewModel = new CameraListViewModel();
 
             this.DataContext = this.CameraListViewModel;
-
         }
 
     }

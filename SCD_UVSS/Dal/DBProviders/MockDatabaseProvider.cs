@@ -59,7 +59,7 @@ namespace SCD_UVSS.Dal.DBProviders
 
             for (int i = 211; i < 222; i++)
             {
-                dbResult.Add(new DbSearchResultModel() { EntryDateTime = DateTime.Now, VehicleNumber = "TN 07 J 5746" });
+                dbResult.Add(new DbSearchResultModel() { EntryDateTime = DateTime.Now, VehicleNumber = "TN 07 J 4321" });
             }
 
             return dbResult;

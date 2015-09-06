@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Documents;
 using log4net;
 using SCD_UVSS.Model;
+using SCD_UVSS.SystemInput;
 using SCD_UVSS.SystemInput.Camera;
 using SCD_UVSS.SystemInput.COM;
 
@@ -14,13 +15,13 @@ namespace SCD_UVSS.Controller
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(MainWindow));
         
-        public readonly GateProvider _GateProvider;
+        public readonly GateProvider GateProvider;
 
         public bool ContinueRecording { get; set; }
 
         public RecordManager(GateProvider gateProvider)
         {
-            this._GateProvider = gateProvider;
+            this.GateProvider = gateProvider;
         }
         
         public event EventHandler VehicleImagesReceived;
@@ -38,12 +39,29 @@ namespace SCD_UVSS.Controller
             }
         }
 
+        public void RecordCurrentSnapshots()
+        {
+            var vehicleBasicInfoModel = new VehicleBasicInfoModel
+            {
+                DateTime = DateTime.Now,
+                UniqueEntryId = Guid.NewGuid().ToString()
+            };
+            //vehicleBasicInfoModel.Number = ""
+            //vehicleBasicInfoModel.IsBlackListed = false;
+
+            var vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
+            
+            foreach (var cameraProvider in this.GateProvider.CameraProviders)
+            {
+                var fileName = cameraProvider.Read();
+            }
+        }
 
         private bool HasLoopStarted()
         {
             try
             {
-                this._GateProvider.ComPortProvider.Read();
+                this.GateProvider.ComPortProvider.Read();
             }
             catch (Exception ex)
             {
@@ -67,4 +85,6 @@ namespace SCD_UVSS.Controller
             
         }
     }
+
+
 }

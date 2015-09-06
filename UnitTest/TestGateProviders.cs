@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using NUnit.Framework;
 using SCD_UVSS.Model;
+using SCD_UVSS.SystemInput;
 using SCD_UVSS.SystemInput.Camera;
 using SCD_UVSS.SystemInput.COM;
 

@@ -10,6 +10,10 @@ namespace SCD_UVSS.SystemInput.COM
 
         public readonly SerialPort SerialPort;
 
+        public event EventHandler LoopStarted;
+
+        public bool StopComConnection;
+
         public ComPortProvider(SerialPort serialPort)
         {
             this.SerialPort = serialPort;
@@ -18,7 +22,23 @@ namespace SCD_UVSS.SystemInput.COM
             this.SerialPort.ReadTimeout = 500;
             this.SerialPort.WriteTimeout = 500;
         }
-        
+
+        public void CheckForData()
+        {
+            while (!StopComConnection)
+            {
+                this.OpenPort();
+                var readContent = this.SerialPort.ReadLine();
+
+                // Start of the loop is Character "S"
+                if (readContent == "S")
+                {
+                    if (LoopStarted != null)
+                        LoopStarted(this, new EventArgs());
+                }
+            }
+        }
+
         public string Read()
         {
             try
@@ -73,7 +93,7 @@ namespace SCD_UVSS.SystemInput.COM
             }
         }
 
-        private void ClosePort()
+        public void ClosePort()
         {
             try
             {

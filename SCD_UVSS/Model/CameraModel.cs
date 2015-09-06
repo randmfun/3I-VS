@@ -9,7 +9,9 @@ namespace SCD_UVSS.Model
 
         public CameraModel()
         {
-            ID = 0;
+            this.ID = 0;
+            this.IpAddress = "255.255.255.255";
+
         }
 
         public int ID { get; set; }

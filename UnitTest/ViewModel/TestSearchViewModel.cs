@@ -28,7 +28,6 @@ namespace UnitTest.ViewModel
         {
             var searchViewModel = new SearchViewModel(null);
             searchViewModel.SearchDataList.Add(new SearchDataViewItem() { ID = "10", Date = DateTime.Now });
-
             Assert.AreEqual(searchViewModel.SearchDataList.First().ID, "10");
         }
     }

@@ -13,7 +13,7 @@ namespace SCD_UVSS.Model
             this.IsBlackListed = false;
         }
 
-        public Guid UniqueId { get; set; }
+        public string UniqueEntryId { get; set; }
 
         public string Number { get; set; } 
 
@@ -24,16 +24,14 @@ namespace SCD_UVSS.Model
 
     public class VehicleImagesModel
     {
-        private readonly VehicleBasicInfoModel _vehicleBasicInfo;
-
-        public VehicleImagesModel(VehicleBasicInfoModel vehicleBasicInfo)
+        public VehicleImagesModel(string uniqueEntryId)
         {
-            this._vehicleBasicInfo = vehicleBasicInfo;
+            this.ForeignKeyId = uniqueEntryId;
         }
 
-        public Guid ForeignKeyId
+        public string ForeignKeyId
         {
-            get { return this._vehicleBasicInfo.UniqueId; }
+            get; private set;
         }
 
         public BitmapImage DriverImage { get; set; }

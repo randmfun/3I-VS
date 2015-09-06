@@ -16,14 +16,14 @@ namespace SCD_UVSS.Model
         private string	name;
 		private string	description = "";
 
-        public Gate(string name)
+        public Gate(string name, string id = null)
         {
-            ID = 0;
+            ID = id ?? Guid.NewGuid().ToString();
             this.name = name;
             this.Cameras = new List<CameraModel>();
         }
 
-        public int ID { get; set; }
+        public string ID { get; set; }
 
 		public string Name
 		{
@@ -48,33 +48,4 @@ namespace SCD_UVSS.Model
         }
     }
 
-    public class GateProvider
-    {
-        public readonly Gate Gate;
-
-        private readonly ComPortProvider _comPortProvider;
-
-        private readonly IEnumerable<ICameraProvider> _cameraProviders;
- 
-        public GateProvider(Gate gate)
-        {
-            this.Gate = gate;
-
-            this._comPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
-            this._cameraProviders = this.Gate.Cameras.Select(x => new DlinkIpCameraProvider(x));
-        }
-
-        public ComPortProvider ComPortProvider
-        {
-            get { return this._comPortProvider; }
-        }
-
-        public IEnumerable<ICameraProvider> CameraProviders
-        {
-            get
-            {
-                return this._cameraProviders;
-            }
-        } 
-    }
 }

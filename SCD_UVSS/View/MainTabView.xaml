@@ -6,18 +6,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TabControl ItemsSource="{Binding Tabs}" TabStripPlacement="Right" Margin="10">
+        <TabControl Name="tabControl" ItemsSource="{Binding Tabs}" TabStripPlacement="Right" Margin="10">
             <TabControl.ItemTemplate>
                 <!-- this is the header template-->
-                <DataTemplate>
-                    <TextBlock Margin="10"
+                <DataTemplate >
+                    <TextBlock Margin="10" FontWeight="Bold" FontSize="20"
                     Text="{Binding Header}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <!-- this is the body of the TabItem template-->
                 <DataTemplate>
-                    <UserControl Content="{Binding ContentControl}"></UserControl>
+                    <UserControl Margin="10" Content="{Binding ContentControl}"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

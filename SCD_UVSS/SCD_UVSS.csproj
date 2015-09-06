@@ -80,12 +80,14 @@
     <Compile Include="Dal\DBProviders\IDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MockDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MySqlDatabaseProvider.cs" />
+    <Compile Include="helpers\ImageUtils.cs" />
     <Compile Include="helpers\SerializeUtility.cs" />
     <Compile Include="Model\BlackListItem.cs" />
     <Compile Include="Model\VehicleInfoModel.cs" />
     <Compile Include="SystemInput\COM\ComPortProvider.cs" />
     <Compile Include="SystemInput\Camera\ICameraProvider.cs" />
     <Compile Include="SystemInput\Camera\DlinkIpCameraProvider.cs" />
+    <Compile Include="SystemInput\GateProvider.cs" />
     <Compile Include="SystemInput\ImageExtensions.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="ViewModel\CameraListViewModel.cs" />
@@ -219,6 +221,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LOGO.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

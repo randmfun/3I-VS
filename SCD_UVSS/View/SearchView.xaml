@@ -76,7 +76,7 @@
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="5" Command="{Binding ShowImage}">View</Button>
+                                <Button Margin="5" Command="{Binding ShowImage}">Images</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

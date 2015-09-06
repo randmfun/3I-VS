@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -22,6 +23,9 @@ namespace SCD_UVSS.View
         public MainCameraView()
         {
             InitializeComponent();
+
+
+            //this.brandImage.Source = (ImageSource) Resources["LOGO"];
         }
     }
 }

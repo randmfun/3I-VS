@@ -37,12 +37,10 @@
 
         <Button Name="button2" Margin="10" Content="Blacklisted" Grid.Row="2" Grid.Column="0" Background="Red" FontWeight="Bold" FontSize="60" ></Button>
 
-        <TextBlock Text="TN 06 J 5746" FontWeight="ExtraBlack" FontSize="60"
-                   Grid.Row="2" Grid.Column="1" 
+        <TextBlock Text="TN 06 J 4321" FontWeight="ExtraBlack" FontSize="60"
+                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
         
-        <!--<TextBlock Text="Font Adjust" 
-                   Grid.Row="2" Grid.Column="2" 
-                   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>-->
+        <Image Grid.Row="2" Grid.Column="3" Margin="10" Source="pack://application:,,,/LOGO.jpg" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

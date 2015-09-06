@@ -92,29 +92,40 @@ namespace SCD_UVSS.ViewModel
 
         public ObservableCollection<GateSetupItem> ConstructSavedGateSetupItems(Gate gateInfo)
         {
-            var gateSetupItems = new ObservableCollection<GateSetupItem>
-            {
-                new GateNameSetupItem(gateInfo.Name),
-                new GateComPortSetupItem(gateInfo.ComPortName)
-            };
+            Logger.Info("Found Saved Gate inforation: " + GateInfoFileName);
 
-            foreach (var camera in gateInfo.Cameras)
+            try
             {
-                gateSetupItems.Add(new GateCameraSetupItem(camera));
+                var gateSetupItems = new ObservableCollection<GateSetupItem>
+                {
+                    new GateNameSetupItem(gateInfo.Name),
+                    new GateComPortSetupItem(gateInfo.ComPortName)
+                };
+
+                foreach (var camera in gateInfo.Cameras)
+                {
+                    gateSetupItems.Add(new GateCameraSetupItem(camera));
+                }
+
+                return gateSetupItems;
             }
-
-            return gateSetupItems;
+            catch (Exception exception)
+            {
+                Logger.Fatal("Reading saved gate information failed", exception);
+                // Fall back
+                return ConstructDummyGateSetupItems();
+            }
         }
         
         private ObservableCollection<GateSetupItem> ConstructDummyGateSetupItems()
         {
-            var gate = new Gate("Default_Gate");
+            var gate = new Gate("Main Entry Gate");
             gate.Cameras.Add(new CameraModel() { Name = "Chasis One" });
             gate.Cameras.Add(new CameraModel() { Name = "Chasis Two" });
             gate.Cameras.Add(new CameraModel() { Name = "Top View" });
             gate.Cameras.Add(new CameraModel() { Name = "Driver Image" });
             gate.Cameras.Add(new CameraModel() { Name = "Licence Plate" });
-            gate.ComPortName = "COM Port Name";
+            gate.ComPortName = "COM2";
 
             return ConstructSavedGateSetupItems(gate);
         }

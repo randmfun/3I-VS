@@ -51,6 +51,7 @@ namespace SCD_UVSS.ViewModel
             get; set;
         }
 
+        int _dummySearchId = 1;
         public void Search(object arg)
         {
             var startDateWithTime = new DateTime(this.StartDateTime.Year, this.StartDateTime.Month, this.StartDateTime.Day, 
@@ -73,7 +74,7 @@ namespace SCD_UVSS.ViewModel
             {
                 this.SearchDataList.Add(new SearchDataViewItem()
                 {
-                    ID = "Some id",
+                    ID = (_dummySearchId++).ToString(),
                     Date = dbSearchResultModel.EntryDateTime,
                     VehicleNumber = dbSearchResultModel.VehicleNumber
                 });

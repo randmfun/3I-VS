@@ -6,6 +6,7 @@ using System.Text;
 using NUnit.Framework;
 using SCD_UVSS.Controller;
 using SCD_UVSS.Model;
+using SCD_UVSS.SystemInput;
 
 namespace UnitTest
 {

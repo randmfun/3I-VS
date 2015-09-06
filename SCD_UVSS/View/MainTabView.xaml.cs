@@ -22,6 +22,7 @@ namespace SCD_UVSS.View
         public MainTabView()
         {
             InitializeComponent();
+            this.tabControl.SelectedIndex = 0;
         }
     }
 }

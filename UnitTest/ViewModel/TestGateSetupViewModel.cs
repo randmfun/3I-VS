@@ -10,16 +10,17 @@ namespace UnitTest.ViewModel
 {
     public class TestGateSetupViewModel
     {
-        private const string expected_gate_name = "Test Gate";
-        private const string expectedCom = "COM1";
-        private const string expectedIpAddress = "255.255.255.255";
+        private const string ExpectedGateName = "Test Gate";
+        private const string ExpectedCom = "COM1";
+        private const string ExpectedIpAddress = "255.255.255.255";
+        private const string GateId = "Gate_ID";
 
         private Gate ConstructGate()
         {
             const int expectedCamId = 1;
 
-            var gateModel = new Gate("one") { ComPortName = expectedCom, Name = expected_gate_name };
-            gateModel.Cameras.Add(new CameraModel() { ID = expectedCamId, IpAddress = expectedIpAddress});
+            var gateModel = new Gate(GateId) { ComPortName = ExpectedCom, Name = ExpectedGateName };
+            gateModel.Cameras.Add(new CameraModel() { ID = expectedCamId, IpAddress = ExpectedIpAddress});
 
             return gateModel;
         }
@@ -44,10 +45,10 @@ namespace UnitTest.ViewModel
 
             var readGate = gateSetupViewModel.ReaSavedGateInfo();
 
-            Assert.AreEqual(readGate.Name, expected_gate_name);
+            Assert.AreEqual(readGate.Name, ExpectedGateName);
             Assert.IsInstanceOf(typeof(CameraModel), readGate.Cameras[0]);
-            Assert.AreEqual(readGate.Cameras[0].IpAddress, expectedIpAddress);
-            Assert.AreEqual(readGate.ComPortName, expectedCom);
+            Assert.AreEqual(readGate.Cameras[0].IpAddress, ExpectedIpAddress);
+            Assert.AreEqual(readGate.ComPortName, ExpectedCom);
         }
 
         [Test]
@@ -62,11 +63,11 @@ namespace UnitTest.ViewModel
             {
                 if (gateSetupItem is GateComPortSetupItem)
                 {
-                    Assert.AreEqual(gateSetupItem.Address, expectedCom);
+                    Assert.AreEqual(gateSetupItem.Address, ExpectedCom);
                 }
                 else if (gateSetupItem is GateNameSetupItem)
                 {
-                    Assert.AreEqual(gateSetupItem.Address, expected_gate_name);
+                    Assert.AreEqual(gateSetupItem.Address, ExpectedGateName);
                 }
             }
         }
@@ -80,8 +81,8 @@ namespace UnitTest.ViewModel
 
             var gateNew = gateSetupViewModel.ConstructGateModelFromGateSetupItems(gateSetupUpItems);
 
-            Assert.AreEqual(gateNew.ComPortName, expectedCom);
-            Assert.AreEqual(gateNew.Name, expected_gate_name);
+            Assert.AreEqual(gateNew.ComPortName, ExpectedCom);
+            Assert.AreEqual(gateNew.Name, ExpectedGateName);
             Assert.AreEqual(gateNew.Cameras.Count, 1);
         }
     }
