@@ -22,7 +22,7 @@ namespace SCD_UVSS.ViewModel
         
         public SearchView SearchViewCtrl { get; set; }
 
-        public CameraViews CameraViews { get; set; }
+        //public CameraViews CameraViews { get; set; }
        
         public GateView GateViewCtrl { get; set; }
         
@@ -31,7 +31,7 @@ namespace SCD_UVSS.ViewModel
         {
             Tabs = new ObservableCollection<TabItem>();
 
-            this.CameraViews = new CameraViews();
+            //this.CameraViews = new CameraViews();
             this.GateViewCtrl = new GateView();
             this.SearchViewCtrl = new SearchView();
 

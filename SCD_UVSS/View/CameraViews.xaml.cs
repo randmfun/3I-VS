@@ -14,9 +14,9 @@ namespace SCD_UVSS.View
         {
             InitializeComponent();
 
-            this.CameraListViewModel = new CameraListViewModel();
+            //this.CameraListViewModel = new CameraListViewModel();
 
-            this.DataContext = this.CameraListViewModel;
+            //this.DataContext = this.CameraListViewModel;
         }
 
     }
