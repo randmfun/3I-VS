@@ -34,12 +34,21 @@ namespace SCD_UVSS.Model
             get; private set;
         }
 
-        public BitmapImage DriverImage { get; set; }
+        public byte[] DriverImage { get; set; }
 
-        public BitmapImage VehicleOverallImage { get; set; }
+        public byte[] VehicleOverallImage { get; set; }
 
-        public BitmapImage NumberPlateImage { get; set; }
+        public byte[] NumberPlateImage { get; set; }
 
-        public BitmapImage ChaisisImage { get; set; }
+        public byte[] ChaisisImage { get; set; }
+    }
+
+
+    public enum ImageType
+    {
+        DriverImage,
+        VehicleOverallImage,
+        NumberPlateImage,
+        ChaisisImage
     }
 }

@@ -39,22 +39,40 @@ namespace SCD_UVSS.Controller
             }
         }
 
-        public void RecordCurrentSnapshots()
+        public void RecordCurrentSnapshots(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
         {
-            var vehicleBasicInfoModel = new VehicleBasicInfoModel
+            vehicleBasicInfoModel = new VehicleBasicInfoModel
             {
                 DateTime = DateTime.Now,
                 UniqueEntryId = Guid.NewGuid().ToString()
             };
+
             //vehicleBasicInfoModel.Number = ""
             //vehicleBasicInfoModel.IsBlackListed = false;
 
-            var vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
+            vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
             
             foreach (var cameraProvider in this.GateProvider.CameraProviders)
             {
-                var fileName = cameraProvider.Read();
+                byte[] image = cameraProvider.Read();
+                switch (cameraProvider.CameraModel.ImageType)
+                {
+                    case ImageType.ChaisisImage:
+                        vehicleImagesModel.ChaisisImage = image;
+                        break;
+                    case ImageType.DriverImage:
+                        vehicleImagesModel.DriverImage = image;
+                        break;
+                    case ImageType.NumberPlateImage:
+                        vehicleImagesModel.NumberPlateImage = image;
+                        break;
+                    case ImageType.VehicleOverallImage:
+                        vehicleImagesModel.VehicleOverallImage = image;
+                        break;
+                }
             }
+
+            
         }
 
         private bool HasLoopStarted()

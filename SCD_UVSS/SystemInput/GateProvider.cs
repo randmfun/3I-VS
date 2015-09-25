@@ -13,9 +13,9 @@ namespace SCD_UVSS.SystemInput
     {
         public readonly Gate Gate;
 
-        private readonly ComPortProvider _comPortProvider;
+        private ComPortProvider _comPortProvider;
 
-        private readonly IEnumerable<ICameraProvider> _cameraProviders;
+        private IEnumerable<ICameraProvider> _cameraProviders;
 
         public GateProvider(Gate gate)
         {
@@ -28,6 +28,7 @@ namespace SCD_UVSS.SystemInput
         public ComPortProvider ComPortProvider
         {
             get { return this._comPortProvider; }
+            set { this._comPortProvider = value; }
         }
 
         public IEnumerable<ICameraProvider> CameraProviders
@@ -35,6 +36,10 @@ namespace SCD_UVSS.SystemInput
             get
             {
                 return this._cameraProviders;
+            }
+            set
+            {
+                this._cameraProviders = value;
             }
         }
     }

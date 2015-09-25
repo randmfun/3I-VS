@@ -36,8 +36,10 @@
       <HintPath>..\thirdparty\NUnit\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +54,7 @@
     <Compile Include="TestCameraProvider.cs" />
     <Compile Include="TestDataAccessLayer.cs" />
     <Compile Include="TestGateProviders.cs" />
+    <Compile Include="TestImageSticher.cs" />
     <Compile Include="TestRecordManger.cs" />
     <Compile Include="ViewModel\TestGateSetupViewModel.cs" />
     <Compile Include="ViewModel\TestSearchViewModel.cs" />
@@ -62,6 +65,14 @@
       <Project>{8DCBFD7F-3248-43D3-A7DC-9E62FB99620E}</Project>
       <Name>SCD_UVSS</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\split_1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\split_2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,7 +11,6 @@ namespace SCD_UVSS.Model
         {
             this.ID = 0;
             this.IpAddress = "255.255.255.255";
-
         }
 
         public int ID { get; set; }
@@ -30,5 +29,7 @@ namespace SCD_UVSS.Model
         {
             get; set;
         }
+
+        public ImageType ImageType { get; set; }
     }
 }

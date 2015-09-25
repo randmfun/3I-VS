@@ -120,11 +120,11 @@ namespace SCD_UVSS.ViewModel
         private ObservableCollection<GateSetupItem> ConstructDummyGateSetupItems()
         {
             var gate = new Gate("Main Entry Gate");
-            gate.Cameras.Add(new CameraModel() { Name = "Chasis One" });
-            gate.Cameras.Add(new CameraModel() { Name = "Chasis Two" });
-            gate.Cameras.Add(new CameraModel() { Name = "Top View" });
-            gate.Cameras.Add(new CameraModel() { Name = "Driver Image" });
-            gate.Cameras.Add(new CameraModel() { Name = "Licence Plate" });
+            gate.Cameras.Add(new CameraModel() { Name = "Chasis One", ImageType = ImageType.ChaisisImage});
+            gate.Cameras.Add(new CameraModel() { Name = "Chasis Two", ImageType = ImageType.ChaisisImage});
+            gate.Cameras.Add(new CameraModel() { Name = "Top View", ImageType = ImageType.VehicleOverallImage});
+            gate.Cameras.Add(new CameraModel() { Name = "Driver Image", ImageType = ImageType.DriverImage});
+            gate.Cameras.Add(new CameraModel() { Name = "Licence Plate", ImageType = ImageType.NumberPlateImage});
             gate.ComPortName = "COM2";
 
             return ConstructSavedGateSetupItems(gate);

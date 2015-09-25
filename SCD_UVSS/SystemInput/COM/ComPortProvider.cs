@@ -4,7 +4,7 @@ using log4net;
 
 namespace SCD_UVSS.SystemInput.COM
 {
-    public class ComPortProvider
+    public class ComPortProvider: IComPortProvider
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ComPortProvider));
 

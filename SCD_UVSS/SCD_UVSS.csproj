@@ -43,7 +43,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -52,12 +52,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\thirdparty\emgu\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Stitching, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\thirdparty\emgu\Emgu.CV.Stitching.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\thirdparty\emgu\Emgu.Util.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\thirdparty\log4net-1.2.13\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -82,11 +95,15 @@
     <Compile Include="Dal\DBProviders\MySqlDatabaseProvider.cs" />
     <Compile Include="helpers\ImageUtils.cs" />
     <Compile Include="helpers\SerializeUtility.cs" />
+    <Compile Include="ImageProcessor\ImageSticher.cs" />
     <Compile Include="Model\BlackListItem.cs" />
     <Compile Include="Model\VehicleInfoModel.cs" />
+    <Compile Include="SystemInput\Camera\MockCameraProvider.cs" />
     <Compile Include="SystemInput\COM\ComPortProvider.cs" />
     <Compile Include="SystemInput\Camera\ICameraProvider.cs" />
     <Compile Include="SystemInput\Camera\DlinkIpCameraProvider.cs" />
+    <Compile Include="SystemInput\COM\IComPortProvider.cs" />
+    <Compile Include="SystemInput\COM\MockComProvider.cs" />
     <Compile Include="SystemInput\GateProvider.cs" />
     <Compile Include="SystemInput\ImageExtensions.cs" />
     <Compile Include="Utils\Logger.cs" />
@@ -237,6 +254,20 @@
     <Resource Include="driver.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="msvcp120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="msvcr120.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_ffmpeg300_64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
