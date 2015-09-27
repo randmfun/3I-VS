@@ -51,4 +51,5 @@ namespace SCD_UVSS.Model
         NumberPlateImage,
         ChaisisImage
     }
+
 }

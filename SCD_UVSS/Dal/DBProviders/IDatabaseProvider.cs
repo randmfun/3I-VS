@@ -28,9 +28,7 @@ namespace SCD_UVSS.Dal.DBProviders
 
         IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel);
     }
-
-
-
+    
     public class DbSearchResultModel
     {
         public DateTime EntryDateTime { get; set; }
@@ -38,6 +36,7 @@ namespace SCD_UVSS.Dal.DBProviders
         public string VehicleNumber { get; set; }
 
     }
+
     public class DbSearchRequestModel
     {
         public DateTime StaDateTime { get; set; }

@@ -137,6 +137,10 @@ namespace SCD_UVSS.ViewModel
 
         public string Address { get; set; }
 
+        public string SavePath { get; set; }
+
+        public bool IsPathVisible { get; private set; }
+
         public GateSetupItem(string label)
         {
             this.Label = label;
@@ -151,6 +155,17 @@ namespace SCD_UVSS.ViewModel
         {
             get { return this.CameraModel.IpAddress; } 
             set { this.CameraModel.IpAddress = value; }
+        }
+
+        public new string SavePath
+        {
+            get { return this.CameraModel.SavePath; }
+            set { this.CameraModel.SavePath = value; }
+        }
+
+        public new bool IsPathVisible
+        {
+            get { return true; }
         }
 
         public GateCameraSetupItem(CameraModel cameraModel) : base(cameraModel.Name)

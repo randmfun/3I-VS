@@ -4,14 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ItemsControl Margin="10" ItemsSource="{Binding GateSetupItems}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1">
@@ -23,15 +26,19 @@
             
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <GroupBox Header="{Binding Label}">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Label Content="{Binding Label}" Width="100" Height="30" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         <TextBox Text="{Binding Address}" Width="150" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                        <TextBox Text="{Binding SavePath}" Margin="10,0" ToolTip="{Binding SavePath}"
+                                 Visibility="{Binding IsPathVisible, Converter={StaticResource BoolToVis}}"
+                                 Width="150" Height="30" VerticalContentAlignment="Center"/>
                     </StackPanel>
+                    </GroupBox>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             
         </ItemsControl>
         <Button Grid.Column="0" Grid.ColumnSpan="1"
-                Command="{Binding SaveButtonClickCmdCommand}" Grid.Row="1" Height="55" Width="100" Content="Save"></Button>
+                Command="{Binding SaveButtonClickCmdCommand}" Grid.Row="1" Height="55" Width="100" Content="Save"/>
     </Grid>
 </UserControl>

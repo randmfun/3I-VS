@@ -25,6 +25,8 @@ namespace SCD_UVSS.Model
 
         public string IsDualCam { get; set; }
 
+        public string SavePath { get; set; }
+
         public string IpAddress
         {
             get; set;
