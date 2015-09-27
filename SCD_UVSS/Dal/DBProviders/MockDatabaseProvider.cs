@@ -8,6 +8,8 @@ namespace SCD_UVSS.Dal.DBProviders
 {
     public class MockDatabaseProvider: IDatabaseProvider
     {
+        public List<BlackListItem> BlackListItems = new List<BlackListItem>(); 
+
         public bool CreateDatabase()
         {
             throw new NotImplementedException();
@@ -25,12 +27,13 @@ namespace SCD_UVSS.Dal.DBProviders
 
         public bool AddBlackListItem(BlackListItem blackListItem)
         {
-            throw new NotImplementedException();
+            this.BlackListItems.Add(blackListItem);
+            return true;
         }
 
         public List<BlackListItem> GetAllBlackListItem()
         {
-            throw new NotImplementedException();
+            return this.BlackListItems;
         }
 
         public bool AddVehicleEntryBasicInfo(VehicleBasicInfoModel vehicleBasicInfoModel)

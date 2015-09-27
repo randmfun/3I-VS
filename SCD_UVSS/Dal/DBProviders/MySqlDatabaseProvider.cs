@@ -30,7 +30,10 @@ namespace SCD_UVSS.Dal.DBProviders
 
         public List<BlackListItem> GetAllBlackListItem()
         {
-            throw new NotImplementedException();
+            var lst = new List<BlackListItem>();
+            for(int i = 0; i <100; i++)
+                lst.Add(new BlackListItem(string.Format("TN 07 {0}", i.ToString())));
+            return lst;
         }
 
         public bool AddVehicleEntryBasicInfo(VehicleBasicInfoModel vehicleBasicInfoModel)

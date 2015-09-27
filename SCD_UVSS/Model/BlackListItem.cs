@@ -8,6 +8,16 @@ namespace SCD_UVSS.Model
 {
     public class BlackListItem
     {
+        public BlackListItem()
+        {
+            this.VehicleNumber = string.Empty;
+        }
+
+        public BlackListItem(string vehicleNumber)
+        {
+            this.VehicleNumber = vehicleNumber;
+        }
+
         public string VehicleNumber { get; set; }
     }
 

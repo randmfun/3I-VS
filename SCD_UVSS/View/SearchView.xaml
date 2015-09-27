@@ -68,7 +68,7 @@
                   HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                   CanUserAddRows="False" CanUserReorderColumns="False"
                   IsReadOnly="True" AutoGenerateColumns="False"
-                  ItemsSource="{Binding SearchDataList}" >
+                  ItemsSource="{Binding SearchDataList}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="100"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}"  Width="150"/>

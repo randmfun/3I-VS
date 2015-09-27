@@ -56,6 +56,7 @@
     <Compile Include="TestGateProviders.cs" />
     <Compile Include="TestImageSticher.cs" />
     <Compile Include="TestRecordManger.cs" />
+    <Compile Include="ViewModel\TestBlackListViewModel.cs" />
     <Compile Include="ViewModel\TestGateSetupViewModel.cs" />
     <Compile Include="ViewModel\TestSearchViewModel.cs" />
     <Compile Include="ViewModel\TestTimeSpanViewModel.cs" />
