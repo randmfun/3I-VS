@@ -8,9 +8,7 @@ namespace SCD_UVSS.SystemInput.COM
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ComPortProvider));
 
-        public readonly SerialPort SerialPort;
-
-        public event EventHandler LoopStarted;
+        public SerialPort SerialPort { get; set; }
 
         public bool StopComConnection;
 
@@ -21,22 +19,6 @@ namespace SCD_UVSS.SystemInput.COM
             // Set the read/write timeouts
             this.SerialPort.ReadTimeout = 500;
             this.SerialPort.WriteTimeout = 500;
-        }
-
-        public void CheckForData()
-        {
-            while (!StopComConnection)
-            {
-                this.OpenPort();
-                var readContent = this.SerialPort.ReadLine();
-
-                // Start of the loop is Character "S"
-                if (readContent == "S")
-                {
-                    if (LoopStarted != null)
-                        LoopStarted(this, new EventArgs());
-                }
-            }
         }
 
         public string Read()

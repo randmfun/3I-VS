@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Documents;
 using log4net;
+using SCD_UVSS.Dal;
 using SCD_UVSS.Model;
 using SCD_UVSS.SystemInput;
 using SCD_UVSS.SystemInput.Camera;
@@ -13,18 +14,23 @@ namespace SCD_UVSS.Controller
 {
     public class RecordManager
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(MainWindow));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
+
+        public readonly DataAccessLayer dataAccessLayer;
         
         public readonly GateProvider GateProvider;
 
         public bool ContinueRecording { get; set; }
 
-        public RecordManager(GateProvider gateProvider)
+        public RecordManager(GateProvider gateProvider, DataAccessLayer dataAccessLayer)
         {
             this.GateProvider = gateProvider;
+            this.dataAccessLayer = dataAccessLayer;
         }
+
+        public delegate void VehicleInfomationHandler(VehicleBasicInfoModel infoModel, VehicleImagesModel imagesModel); 
         
-        public event EventHandler VehicleImagesReceived;
+        public event VehicleInfomationHandler VehicleInformationRecived;
 
         public bool StopRecording { get; set; }
 
@@ -32,13 +38,28 @@ namespace SCD_UVSS.Controller
         {
             while (this.ContinueRecording)
             {
-                if (this.HasLoopStarted())
-                {
-                    
-                }
+                VehicleBasicInfoModel vehicleBasicInfoModel;
+                VehicleImagesModel vehicleImagesModel;
+
+                if (!this.StartRecordingInfo(out vehicleBasicInfoModel, out vehicleImagesModel)) continue;
+
+                if (VehicleInformationRecived != null)
+                    this.VehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
             }
         }
 
+        public bool StartRecordingInfo(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
+        {
+            vehicleBasicInfoModel = null;
+            vehicleImagesModel = null;
+
+            if (!this.HasLoopStarted()) return false;
+
+            this.RecordCurrentSnapshots(out vehicleBasicInfoModel, out  vehicleImagesModel);
+            this.EndLoop();
+            return true;
+        }
+        
         public void RecordCurrentSnapshots(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
         {
             vehicleBasicInfoModel = new VehicleBasicInfoModel
@@ -48,7 +69,8 @@ namespace SCD_UVSS.Controller
             };
 
             //vehicleBasicInfoModel.Number = ""
-            //vehicleBasicInfoModel.IsBlackListed = false;
+            var number = "";
+            vehicleBasicInfoModel.IsBlackListed = this.IsBlackListedNumber(number);
 
             vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
             
@@ -72,19 +94,20 @@ namespace SCD_UVSS.Controller
                 }
             }
 
-            
         }
 
         private bool HasLoopStarted()
         {
             try
             {
-                this.GateProvider.ComPortProvider.Read();
+                Logger.Info("Check Loop Started..");
+                var readLine = this.GateProvider.ComPortProvider.Read();
+                return readLine.Trim() == "S";
             }
             catch (Exception ex)
             {
-                logger.Error("Checking Has look started failed.");
-                logger.Fatal(ex.Message);        
+                Logger.Error("Checking Has loop started failed!!");
+                Logger.Fatal(ex.Message);        
             }
             return true;
         }
@@ -93,14 +116,21 @@ namespace SCD_UVSS.Controller
         {
             try
             {
-
+                Logger.Info("End Loop ..");
+                const string endLoopMessage = "E";
+                this.GateProvider.ComPortProvider.Write(endLoopMessage);
             }
             catch (Exception ex)
             {
-                logger.Error("End Loop Crashed.");
-                logger.Fatal(ex.Message);
+                Logger.Error("End Loop Crashed.");
+                Logger.Fatal(ex.Message);
             }
-            
+        }
+
+        public bool IsBlackListedNumber(string vehicleNumber)
+        {
+            var allBlackListedItems = this.dataAccessLayer.GetAllBlackListItem();
+            return allBlackListedItems.Any(item => item.VehicleNumber == vehicleNumber);
         }
     }
     

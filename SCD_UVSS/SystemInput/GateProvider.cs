@@ -13,7 +13,7 @@ namespace SCD_UVSS.SystemInput
     {
         public readonly Gate Gate;
 
-        private ComPortProvider _comPortProvider;
+        private IComPortProvider _comPortProvider;
 
         private IEnumerable<ICameraProvider> _cameraProviders;
 
@@ -25,7 +25,7 @@ namespace SCD_UVSS.SystemInput
             this._cameraProviders = this.Gate.Cameras.Select(x => new DlinkIpCameraProvider(x));
         }
 
-        public ComPortProvider ComPortProvider
+        public IComPortProvider ComPortProvider
         {
             get { return this._comPortProvider; }
             set { this._comPortProvider = value; }

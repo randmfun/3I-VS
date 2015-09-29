@@ -30,14 +30,14 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Search Black Listed..." Grid.Row="1">
+        <GroupBox Header="Search Blacklisted..." Grid.Row="1">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Vehicle Number : " Margin="10" VerticalAlignment="Center"/>
                     <TextBox Text="{Binding SearchVehicleNumber}" Margin="10" Width="100" VerticalAlignment="Center"/>
                     <Button Margin="10" Width="55" Height="35" Content="Search.." VerticalAlignment="Center" Command="{Binding CmdSearchVehicleNumber}"/>
                 </StackPanel>
-                <ListBox MaxHeight="400" ItemsSource="{Binding SearchResults}" Margin="10" Width="150" HorizontalAlignment="Left"  AlternationCount="2">
+                <ListBox MaxHeight="400" ItemsSource="{Binding SearchResults}" Margin="10" Width="150" MinHeight="200" HorizontalAlignment="Left"  AlternationCount="2">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding VehicleNumber}"/>
