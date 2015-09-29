@@ -14,13 +14,14 @@ namespace UnitTest.ViewModel
         private const string ExpectedCom = "COM1";
         private const string ExpectedIpAddress = "255.255.255.255";
         private const string GateId = "Gate_ID";
+        private const string ExpectedSavePath = @"F:\save\me\here";
 
         private Gate ConstructGate()
         {
             const int expectedCamId = 1;
 
             var gateModel = new Gate(GateId) { ComPortName = ExpectedCom, Name = ExpectedGateName };
-            gateModel.Cameras.Add(new CameraModel() { ID = expectedCamId, IpAddress = ExpectedIpAddress});
+            gateModel.Cameras.Add(new CameraModel() { ID = expectedCamId, IpAddress = ExpectedIpAddress, SavePath = ExpectedSavePath });
 
             return gateModel;
         }
@@ -41,13 +42,15 @@ namespace UnitTest.ViewModel
         {
             var gate = this.ConstructGate();
             var gateSetupViewModel = new GateSetupViewModel(null);
-            var status = gateSetupViewModel.SaveGateInfo(gate);
+            
+            gateSetupViewModel.SaveGateInfo(gate);
 
             var readGate = gateSetupViewModel.ReaSavedGateInfo();
 
             Assert.AreEqual(readGate.Name, ExpectedGateName);
             Assert.IsInstanceOf(typeof(CameraModel), readGate.Cameras[0]);
             Assert.AreEqual(readGate.Cameras[0].IpAddress, ExpectedIpAddress);
+            Assert.AreEqual(readGate.Cameras[0].SavePath, ExpectedSavePath);
             Assert.AreEqual(readGate.ComPortName, ExpectedCom);
         }
 
@@ -68,6 +71,10 @@ namespace UnitTest.ViewModel
                 else if (gateSetupItem is GateNameSetupItem)
                 {
                     Assert.AreEqual(gateSetupItem.Address, ExpectedGateName);
+                }
+                else if(gateSetupItem is GateCameraSetupItem)
+                {
+                    Assert.AreEqual(((GateCameraSetupItem)(gateSetupItem)).SavePath, ExpectedSavePath);
                 }
             }
         }
