@@ -108,7 +108,6 @@
     <Compile Include="SystemInput\ImageExtensions.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="ViewModel\BlackListViewModel.cs" />
-    <Compile Include="ViewModel\CameraListViewModel.cs" />
     <Compile Include="ViewModel\GateSetupViewModel.cs" />
     <Compile Include="ViewModel\MainCameraViewModel.cs" />
     <Compile Include="ViewModel\MainTabViewModel.cs" />
@@ -121,9 +120,6 @@
     </Compile>
     <Compile Include="View\CameraImagesViewWindow.xaml.cs">
       <DependentUpon>CameraImagesViewWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CameraViews.xaml.cs">
-      <DependentUpon>CameraViews.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GateView.xaml.cs">
       <DependentUpon>GateView.xaml</DependentUpon>
@@ -157,10 +153,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CameraImagesViewWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CameraViews.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
