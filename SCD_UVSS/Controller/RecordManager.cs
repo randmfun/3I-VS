@@ -16,7 +16,7 @@ namespace SCD_UVSS.Controller
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
 
-        public readonly DataAccessLayer dataAccessLayer;
+        private readonly DataAccessLayer _dataAccessLayer;
         
         public readonly GateProvider GateProvider;
 
@@ -25,7 +25,7 @@ namespace SCD_UVSS.Controller
         public RecordManager(GateProvider gateProvider, DataAccessLayer dataAccessLayer)
         {
             this.GateProvider = gateProvider;
-            this.dataAccessLayer = dataAccessLayer;
+            this._dataAccessLayer = dataAccessLayer;
         }
 
         public delegate void VehicleInfomationHandler(VehicleBasicInfoModel infoModel, VehicleImagesModel imagesModel); 
@@ -62,6 +62,8 @@ namespace SCD_UVSS.Controller
         
         public void RecordCurrentSnapshots(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
         {
+            Logger.Info("RecordCurrentSnapshots Started..");
+
             vehicleBasicInfoModel = new VehicleBasicInfoModel
             {
                 DateTime = DateTime.Now,
@@ -94,6 +96,7 @@ namespace SCD_UVSS.Controller
                 }
             }
 
+            Logger.Info("RecordCurrentSnapshots Ended..");
         }
 
         private bool HasLoopStarted()
@@ -129,9 +132,8 @@ namespace SCD_UVSS.Controller
 
         public bool IsBlackListedNumber(string vehicleNumber)
         {
-            var allBlackListedItems = this.dataAccessLayer.GetAllBlackListItem();
+            var allBlackListedItems = this._dataAccessLayer.GetAllBlackListItem();
             return allBlackListedItems.Any(item => item.VehicleNumber == vehicleNumber);
         }
     }
-    
 }

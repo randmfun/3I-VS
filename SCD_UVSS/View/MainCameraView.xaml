@@ -26,18 +26,18 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" >
             <!--<Image Margin="10" Source="D:\\chasis.jpg" Stretch="UniformToFill" />-->
-            <Image Margin="10" Source="pack://application:,,,/chasis.jpg" />
+            <Image Margin="10" Source="{Binding ChasisImage}" />
         </ScrollViewer>
         <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <Image Margin="10" Source="pack://application:,,,/car-topview.jpg"/>
+            <Image Margin="10" Source="{Binding CarTopViewImage}"/>
         </ScrollViewer>
         <ScrollViewer Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" >
-            <Image Margin="10" Stretch="UniformToFill" Source="pack://application:,,,/driver.jpg"/>    
+            <Image Margin="10" Stretch="UniformToFill" Source="{Binding DriverImage}"/>    
         </ScrollViewer>
 
-        <Button Name="button2" Margin="10" Content="Blacklisted" Grid.Row="2" Grid.Column="0" Background="Red" FontWeight="Bold" FontSize="60" ></Button>
+        <Button Name="button2" Margin="10" Content="Blacklisted" Grid.Row="2" Grid.Column="0" Background="Red" FontWeight="Bold" FontSize="60" />
 
-        <TextBlock Text="TN 06 J 4321" FontWeight="ExtraBlack" FontSize="60"
+        <TextBlock Text="{Binding VehicleNumber}" FontWeight="ExtraBlack" FontSize="60"
                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
         

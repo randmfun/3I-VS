@@ -29,7 +29,6 @@ namespace SCD_UVSS.helpers
             bitmapImage.BeginInit();
             bitmapImage.UriSource = new Uri(filePath);
             bitmapImage.EndInit();
-
             
             return bitmapImage;
         }

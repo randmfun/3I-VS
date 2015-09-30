@@ -24,11 +24,11 @@ namespace SCD_UVSS.View
     {
         public SearchViewModel SearchViewModel { get; set; }
         
-        public SearchView()
+        public SearchView(DataAccessLayer dataAccessLayer)
         {
             InitializeComponent();
 
-            this.SearchViewModel = new SearchViewModel(new DataAccessLayer(new MockDatabaseProvider()));
+            this.SearchViewModel = new SearchViewModel(dataAccessLayer);
 
             this.DataContext = this.SearchViewModel;
         }

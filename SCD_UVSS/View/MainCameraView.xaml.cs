@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SCD_UVSS.Dal;
+using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS.View
 {
@@ -20,10 +22,14 @@ namespace SCD_UVSS.View
     /// </summary>
     public partial class MainCameraView : UserControl
     {
-        public MainCameraView()
+        private MainCameraViewModel _mainCameraViewModel;
+
+        public MainCameraView(DataAccessLayer dataAccessLayer)
         {
             InitializeComponent();
 
+            this._mainCameraViewModel = new MainCameraViewModel(dataAccessLayer);
+            this.DataContext = this._mainCameraViewModel;
 
             //this.brandImage.Source = (ImageSource) Resources["LOGO"];
         }

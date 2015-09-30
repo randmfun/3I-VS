@@ -22,11 +22,11 @@ namespace SCD_UVSS.View
     /// </summary>
     public partial class BlackListView : UserControl
     {
-        public BlackListView()
+        public BlackListView(DataAccessLayer dataAccessLayer)
         {
             InitializeComponent();
 
-            this.DataContext = new BlackListViewModel(new DataAccessLayer(new MySqlDatabaseProvider()));
+            this.DataContext = new BlackListViewModel(dataAccessLayer);
         }
     }
 }

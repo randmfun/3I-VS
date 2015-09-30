@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using log4net;
+using SCD_UVSS.Controller;
 using SCD_UVSS.ViewModel;
 
 namespace SCD_UVSS
@@ -35,7 +36,7 @@ namespace SCD_UVSS
             catch (Exception ex)
             {
                 logger.Error("Application Crashed.");
-                logger.Fatal(ex.Message);
+                logger.Fatal(ex);
             }
         }
 

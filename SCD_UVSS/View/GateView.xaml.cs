@@ -24,11 +24,11 @@ namespace SCD_UVSS.View
     {
         public GateSetupViewModel GateSetupViewModel { get; set; }
         
-        public GateView()
+        public GateView(DataAccessLayer dataAccessLayer)
         {
             InitializeComponent();
 
-            this.GateSetupViewModel = new GateSetupViewModel(new DataAccessLayer(new MySqlDatabaseProvider()));
+            this.GateSetupViewModel = new GateSetupViewModel(dataAccessLayer);
 
             this.DataContext = this.GateSetupViewModel;
         }

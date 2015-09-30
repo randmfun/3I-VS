@@ -5,11 +5,10 @@ namespace SCD_UVSS.Model
     [Serializable]
     public class CameraModel
     {
-        private string description = "";
-
         public CameraModel()
         {
             this.ID = 0;
+            this.Description = string.Empty;
             this.IpAddress = "255.255.255.255";
         }
 
@@ -17,11 +16,7 @@ namespace SCD_UVSS.Model
 
         public string Name { get; set; }
 
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public string Description { get; set; }
 
         public string IsDualCam { get; set; }
 

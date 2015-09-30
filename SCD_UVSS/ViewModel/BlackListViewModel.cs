@@ -12,9 +12,9 @@ namespace SCD_UVSS.ViewModel
 {
     public class BlackListViewModel
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(GateSetupViewModel));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(GateSetupViewModel));
 
-        private readonly DataAccessLayer dataAccessLayer;
+        private readonly DataAccessLayer _dataAccessLayer;
 
         public string SearchVehicleNumber { get; set; }
 
@@ -29,7 +29,7 @@ namespace SCD_UVSS.ViewModel
 
         public BlackListViewModel(DataAccessLayer dataAccessLayer)
         {
-            this.dataAccessLayer = dataAccessLayer;
+            this._dataAccessLayer = dataAccessLayer;
             
             this.SearchVehicleNumber = string.Empty;
             this.AddVehicleNumber = string.Empty;
@@ -42,17 +42,17 @@ namespace SCD_UVSS.ViewModel
 
         public void AddBlackListItemHandler(object dummy)
         {
-            logger.Info(string.Format("Adding vehichle to Blacklist : {0}", this.AddVehicleNumber));
+            Logger.Info(string.Format("Adding vehichle to Blacklist : {0}", this.AddVehicleNumber));
 
             if (string.IsNullOrEmpty(this.AddVehicleNumber)) return;
 
-            this.dataAccessLayer.AddBlackListItem(new BlackListItem() {VehicleNumber = this.AddVehicleNumber});
-            logger.Info(string.Format("Successfully Added vehichle to Blacklist : {0}", this.AddVehicleNumber));
+            this._dataAccessLayer.AddBlackListItem(new BlackListItem() {VehicleNumber = this.AddVehicleNumber});
+            Logger.Info(string.Format("Successfully Added vehichle to Blacklist : {0}", this.AddVehicleNumber));
         }
 
         public void SearchBlackListItemsHandler(object dummy)
         {
-            var results = this.dataAccessLayer.GetAllBlackListItem();
+            var results = this._dataAccessLayer.GetAllBlackListItem();
             var filteredResults = this.GetFilteredList(results, this.SearchVehicleNumber);
 
             this.SearchResults.Clear();
