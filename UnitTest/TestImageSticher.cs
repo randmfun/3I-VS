@@ -23,10 +23,10 @@ namespace UnitTest
             }
         }
 
-        [Test]
+        //[Test]
         public void TestSticher()
         {
-            //
+            // Arrange
             var executiongDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var tempFileName = Path.ChangeExtension(Path.Combine(Path.GetTempPath(), Path.GetTempFileName()), ".jpg");
 
@@ -40,5 +40,26 @@ namespace UnitTest
             // Assert
             Assert.True(File.Exists(tempFileName));
         }
+
+        //[Test]
+        public void TestSticherByteArray()
+        {
+            // Arrange
+            var executiongDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var tempFileName = Path.ChangeExtension(Path.Combine(Path.GetTempPath(), Path.GetTempFileName()), ".jpg");
+
+            var fileList = new List<string> { "split_1.jpg", "split_2.jpg" };
+            var absFileList = from fileName in fileList
+                              select Path.Combine(executiongDir, "Resources", fileName);
+
+            var byterArray = absFileList.Select(File.ReadAllBytes).ToList();
+
+            // Action
+            var resutlByteArray = ImageSticher.Sticher(byterArray);
+
+            // Assert
+            Assert.True(resutlByteArray.Length > 3);
+        }
+
     }
 }

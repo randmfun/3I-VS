@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Documents;
 using log4net;
 using SCD_UVSS.Dal;
+using SCD_UVSS.ImageProcessor;
 using SCD_UVSS.Model;
 using SCD_UVSS.SystemInput;
 using SCD_UVSS.SystemInput.Camera;
@@ -36,6 +37,8 @@ namespace SCD_UVSS.Controller
 
         public void StartRecording()
         {
+            Logger.Info("Started Recording...");
+
             while (this.ContinueRecording)
             {
                 VehicleBasicInfoModel vehicleBasicInfoModel;
@@ -43,11 +46,11 @@ namespace SCD_UVSS.Controller
 
                 if (!this.StartRecordingInfo(out vehicleBasicInfoModel, out vehicleImagesModel)) continue;
 
-                if (VehicleInformationRecived != null)
-                    this.VehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
+                // We have a new Vehichle information, Notify the UI, to Referesh the content
+                this.OnVehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
             }
         }
-
+        
         public bool StartRecordingInfo(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
         {
             vehicleBasicInfoModel = null;
@@ -55,11 +58,16 @@ namespace SCD_UVSS.Controller
 
             if (!this.HasLoopStarted()) return false;
 
+            // There is a NEW Vehicle entered, Start capturing
             this.RecordCurrentSnapshots(out vehicleBasicInfoModel, out  vehicleImagesModel);
+
+            // Done Capturing, signal Firmware
             this.EndLoop();
             return true;
         }
-        
+
+        private static int vehichlenumber = 123;
+
         public void RecordCurrentSnapshots(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
         {
             Logger.Info("RecordCurrentSnapshots Started..");
@@ -71,18 +79,22 @@ namespace SCD_UVSS.Controller
             };
 
             //vehicleBasicInfoModel.Number = ""
-            var number = "";
-            vehicleBasicInfoModel.IsBlackListed = this.IsBlackListedNumber(number);
+            var number = vehichlenumber++;
+
+            vehicleBasicInfoModel.Number = number.ToString();
+            vehicleBasicInfoModel.IsBlackListed = this.IsBlackListedNumber(number.ToString());
 
             vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
             
+            var chasisImages = new List<byte[]>();
+
             foreach (var cameraProvider in this.GateProvider.CameraProviders)
             {
                 byte[] image = cameraProvider.Read();
                 switch (cameraProvider.CameraModel.ImageType)
                 {
                     case ImageType.ChaisisImage:
-                        vehicleImagesModel.ChaisisImage = image;
+                        chasisImages.Add(image);
                         break;
                     case ImageType.DriverImage:
                         vehicleImagesModel.DriverImage = image;
@@ -96,6 +108,8 @@ namespace SCD_UVSS.Controller
                 }
             }
 
+            vehicleImagesModel.ChaisisImage = ImageSticher.Sticher(chasisImages);
+            
             Logger.Info("RecordCurrentSnapshots Ended..");
         }
 
@@ -112,7 +126,7 @@ namespace SCD_UVSS.Controller
                 Logger.Error("Checking Has loop started failed!!");
                 Logger.Fatal(ex.Message);        
             }
-            return true;
+            return false;
         }
 
         private void EndLoop()
@@ -134,6 +148,12 @@ namespace SCD_UVSS.Controller
         {
             var allBlackListedItems = this._dataAccessLayer.GetAllBlackListItem();
             return allBlackListedItems.Any(item => item.VehicleNumber == vehicleNumber);
+        }
+
+        protected void OnVehicleInformationRecived(VehicleBasicInfoModel vehicleBasicInfoModel, VehicleImagesModel vehicleImagesModel)
+        {
+            if (VehicleInformationRecived != null)
+                this.VehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
         }
     }
 }

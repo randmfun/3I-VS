@@ -35,8 +35,10 @@
             <Image Margin="10" Stretch="UniformToFill" Source="{Binding DriverImage}"/>    
         </ScrollViewer>
 
-        <Button Name="button2" Margin="10" Content="Blacklisted" Grid.Row="2" Grid.Column="0" Background="Red" FontWeight="Bold" FontSize="60" />
-
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+            <Button Margin="10" Content="Start Recording.." Command="{Binding StartRecordingCmd}" FontWeight="Bold" FontSize="30" />
+            <Button Margin="10" Background="Red" FontWeight="Bold" Height="50" Width="50" ToolTip="Blacklisted.."/>
+        </StackPanel>
         <TextBlock Text="{Binding VehicleNumber}" FontWeight="ExtraBlack" FontSize="60"
                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>

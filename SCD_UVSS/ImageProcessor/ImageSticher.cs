@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -39,6 +40,34 @@ namespace SCD_UVSS.ImageProcessor
             {
                 Logger.Error("Failed to stich !!", ex);
                 return false;
+            }
+        }
+
+        public static byte[] Sticher(IEnumerable<byte[]> images)
+        {
+            try
+            {
+                var fileNames = new List<string>();
+                foreach (var image in images)
+                {
+                    var tempFileName = Path.GetTempFileName();
+                    tempFileName = Path.ChangeExtension(tempFileName, "jpg");
+
+                    File.WriteAllBytes(tempFileName, image);
+                    fileNames.Add(tempFileName);
+                }
+
+                var resultFile = Path.GetTempFileName();
+                resultFile = Path.ChangeExtension(resultFile, "jpg");
+
+                Sticher(fileNames, resultFile);
+
+                return File.ReadAllBytes(resultFile);
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("Failed Sticher byte array", exception);
+                return new byte[1];
             }
         }
     }

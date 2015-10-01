@@ -29,8 +29,14 @@ namespace SCD_UVSS.View
             InitializeComponent();
 
             this.GateSetupViewModel = new GateSetupViewModel(dataAccessLayer);
+            this.GateSetupViewModel.ShowMessage += GateSetupViewModel_ShowMessage;
 
             this.DataContext = this.GateSetupViewModel;
+        }
+
+        void GateSetupViewModel_ShowMessage(string errorMessage)
+        {
+            MessageBox.Show(errorMessage);
         }
     }
 }

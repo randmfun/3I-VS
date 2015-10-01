@@ -29,9 +29,15 @@ namespace SCD_UVSS.View
             InitializeComponent();
 
             this._mainCameraViewModel = new MainCameraViewModel(dataAccessLayer);
+            this._mainCameraViewModel.ShowMessage += _mainCameraViewModel_ShowMessage;
             this.DataContext = this._mainCameraViewModel;
 
             //this.brandImage.Source = (ImageSource) Resources["LOGO"];
+        }
+
+        void _mainCameraViewModel_ShowMessage(string errorMessage)
+        {
+            MessageBox.Show(errorMessage);
         }
     }
 }

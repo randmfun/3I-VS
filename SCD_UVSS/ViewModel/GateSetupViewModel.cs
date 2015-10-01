@@ -20,19 +20,21 @@ namespace SCD_UVSS.ViewModel
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(GateSetupViewModel));
 
-        public const string GateInfoFileName = "gateinfo.bin";
+        public string GateInfoFileName
+        {
+            get { return this._dataAccessLayer.GateInfoFileName; }
+        }
+
+        public event ErrorMessageDelegate ShowMessage;
 
         private ObservableCollection<GateSetupItem> _gateSetupItems;
 
         public ObservableCollection<GateSetupItem> GateSetupItems
         {
-            get
-            {
-                if (this._gateSetupItems == null)
-                    this._gateSetupItems = File.Exists(GateInfoFileName) ? 
-                        this.ConstructSavedGateSetupItems(this.ReaSavedGateInfo()) : this.ConstructDummyGateSetupItems();
-                return this._gateSetupItems;
-            } 
+            get {
+                return this._gateSetupItems ??
+                       (this._gateSetupItems = this.ConstructSavedGateSetupItems(this.ReadSavedGateInfo()));
+            }
             set { this._gateSetupItems = value; }
         }
 
@@ -53,18 +55,28 @@ namespace SCD_UVSS.ViewModel
         {
             var gate = this.ConstructGateModelFromGateSetupItems(this.GateSetupItems);
 
-            //this._dataAccessLayer.AddGateInfo(gate);
+            var errors = this._dataAccessLayer.ValidateGateInformation(gate);
+            if (errors.Length > 0)
+            {
+                if (this.ShowMessage != null)
+                    this.ShowMessage(string.Format("Errors {0}", errors.ToString()));
+                return;
+            }
+
             SaveGateInfo(gate);
+
+            if (this.ShowMessage != null)
+                this.ShowMessage("Save Successful !!");
         }
 
         public bool SaveGateInfo(Gate gate)
         {
-            return SerializeUtility.Save(gate, GateInfoFileName);
+            return this._dataAccessLayer.SaveGateInfo(gate);
         }
 
-        public Gate ReaSavedGateInfo()
+        public Gate ReadSavedGateInfo()
         {
-            return SerializeUtility.Read<Gate>(GateInfoFileName);
+            return  this._dataAccessLayer.ReadGateInfo();
         }
 
         public Gate ConstructGateModelFromGateSetupItems(ObservableCollection<GateSetupItem> gateSetupItems)
@@ -113,81 +125,9 @@ namespace SCD_UVSS.ViewModel
             {
                 Logger.Fatal("Reading saved gate information failed", exception);
                 // Fall back
-                return ConstructDummyGateSetupItems();
+                return ConstructSavedGateSetupItems(this._dataAccessLayer.ReadGateInfo());
             }
         }
-        
-        private ObservableCollection<GateSetupItem> ConstructDummyGateSetupItems()
-        {
-            var gate = new Gate("Main Entry Gate");
-            gate.Cameras.Add(new CameraModel() { Name = "Chasis One", ImageType = ImageType.ChaisisImage});
-            gate.Cameras.Add(new CameraModel() { Name = "Chasis Two", ImageType = ImageType.ChaisisImage});
-            gate.Cameras.Add(new CameraModel() { Name = "Top View", ImageType = ImageType.VehicleOverallImage});
-            gate.Cameras.Add(new CameraModel() { Name = "Driver Image", ImageType = ImageType.DriverImage});
-            gate.Cameras.Add(new CameraModel() { Name = "Licence Plate", ImageType = ImageType.NumberPlateImage});
-            gate.ComPortName = "COM2";
-
-            return ConstructSavedGateSetupItems(gate);
-        }
     }
 
-    public class GateSetupItem
-    {
-        public string Label { get; set; }
-
-        public string Address { get; set; }
-
-        public string SavePath { get; set; }
-
-        public bool IsPathVisible { get; private set; }
-
-        public GateSetupItem(string label)
-        {
-            this.Label = label;
-        }
-    }
-
-    public class GateCameraSetupItem : GateSetupItem
-    {
-        public CameraModel CameraModel { get; set; }
-
-        public new string Address 
-        {
-            get { return this.CameraModel.IpAddress; } 
-            set { this.CameraModel.IpAddress = value; }
-        }
-
-        public new string SavePath
-        {
-            get { return this.CameraModel.SavePath; }
-            set { this.CameraModel.SavePath = value; }
-        }
-
-        public new bool IsPathVisible
-        {
-            get { return true; }
-        }
-
-        public GateCameraSetupItem(CameraModel cameraModel) : base(cameraModel.Name)
-        {
-            this.CameraModel = cameraModel;
-        }
-    }
-
-    public class GateComPortSetupItem : GateSetupItem
-    {
-        public GateComPortSetupItem(string address) : base("COM Port")
-        {
-            this.Address = address;
-        }
-    }
-
-    public class GateNameSetupItem : GateSetupItem
-    {
-        public GateNameSetupItem(string address)
-            : base("Gate Name")
-        {
-            this.Address = address;
-        }
-    }
 }

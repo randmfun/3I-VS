@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using SCD_UVSS.Dal;
+using SCD_UVSS.Dal.DBProviders;
 using SCD_UVSS.Model;
 using SCD_UVSS.ViewModel;
 
@@ -26,12 +28,17 @@ namespace UnitTest.ViewModel
             return gateModel;
         }
 
+        private GateSetupViewModel ConstructGateSetupViewModel()
+        {
+            return new GateSetupViewModel(new DataAccessLayer(new MockDatabaseProvider()));
+        }
+
         [Test]
         public void TestSaveGateInfo()
         {
             var gate = this.ConstructGate();
 
-            var gateSetupViewModel = new GateSetupViewModel(null);
+            var gateSetupViewModel = this.ConstructGateSetupViewModel();
             var status = gateSetupViewModel.SaveGateInfo(gate);
 
             Assert.IsTrue(status);
@@ -41,11 +48,11 @@ namespace UnitTest.ViewModel
         public void TestReaGateInfo()
         {
             var gate = this.ConstructGate();
-            var gateSetupViewModel = new GateSetupViewModel(null);
+            var gateSetupViewModel = this.ConstructGateSetupViewModel();
             
             gateSetupViewModel.SaveGateInfo(gate);
 
-            var readGate = gateSetupViewModel.ReaSavedGateInfo();
+            var readGate = gateSetupViewModel.ReadSavedGateInfo();
 
             Assert.AreEqual(readGate.Name, ExpectedGateName);
             Assert.IsInstanceOf(typeof(CameraModel), readGate.Cameras[0]);
@@ -58,7 +65,7 @@ namespace UnitTest.ViewModel
         public void TestConstructSavedGateSetupItems()
         {
             var gate = this.ConstructGate();
-            var gateSetupViewModel = new GateSetupViewModel(null);
+            var gateSetupViewModel = this.ConstructGateSetupViewModel();
             var gateSetupUpItems = gateSetupViewModel.ConstructSavedGateSetupItems(gate);
             Assert.AreEqual(gateSetupUpItems.Count, 3);
 
@@ -83,7 +90,7 @@ namespace UnitTest.ViewModel
         public void TestConstructGateModelFromGateSetupItems()
         {
             var gate = this.ConstructGate();
-            var gateSetupViewModel = new GateSetupViewModel(null);
+            var gateSetupViewModel = this.ConstructGateSetupViewModel();
             var gateSetupUpItems = gateSetupViewModel.ConstructSavedGateSetupItems(gate);
 
             var gateNew = gateSetupViewModel.ConstructGateModelFromGateSetupItems(gateSetupUpItems);

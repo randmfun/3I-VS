@@ -25,7 +25,6 @@ namespace SCD_UVSS.ViewModel
         public ICommand CmdSearchVehicleNumber { get; set; }
         
         public ObservableCollection<BlackListItem> SearchResults { get; set;}
-        
 
         public BlackListViewModel(DataAccessLayer dataAccessLayer)
         {

@@ -76,6 +76,7 @@
     <Compile Include="TestCameraProvider.cs" />
     <Compile Include="TestDataAccessLayer.cs" />
     <Compile Include="TestGateProviders.cs" />
+    <Compile Include="TestHikVisionCameraProvider.cs" />
     <Compile Include="TestImageSticher.cs" />
     <Compile Include="TestRecordManger.cs" />
     <Compile Include="ViewModel\TestBlackListViewModel.cs" />
