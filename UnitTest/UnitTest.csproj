@@ -78,6 +78,7 @@
     <Compile Include="TestGateProviders.cs" />
     <Compile Include="TestHikVisionCameraProvider.cs" />
     <Compile Include="TestImageSticher.cs" />
+    <Compile Include="TestMySqlDatabaseProvider.cs" />
     <Compile Include="TestRecordManger.cs" />
     <Compile Include="ViewModel\TestBlackListViewModel.cs" />
     <Compile Include="ViewModel\TestGateSetupViewModel.cs" />

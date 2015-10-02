@@ -10,6 +10,8 @@ using SCD_UVSS.ImageProcessor;
 
 namespace UnitTest
 {
+    [TestFixture]
+    [Ignore("Ignore Image Sticher")]
     public class TestImageSticher
     {
         public void DeleteFile(string absFilePath)
@@ -23,7 +25,7 @@ namespace UnitTest
             }
         }
 
-        //[Test]
+        [Test]
         public void TestSticher()
         {
             // Arrange
@@ -41,7 +43,7 @@ namespace UnitTest
             Assert.True(File.Exists(tempFileName));
         }
 
-        //[Test]
+        [Test]
         public void TestSticherByteArray()
         {
             // Arrange
