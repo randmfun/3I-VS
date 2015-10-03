@@ -59,6 +59,11 @@ namespace UnitTest
             throw new NotImplementedException();
         }
 
+        public DbImageResult GetImageResult(string uniqueId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AddGateInfo()
         {
             throw new NotImplementedException();

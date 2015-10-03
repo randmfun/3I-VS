@@ -5,6 +5,6 @@
         Title="Captured Images">
     
     <ScrollViewer>
-        <view:MainCameraView/>
+        <UserControl x:Name="mainCameraViewControl"></UserControl>
     </ScrollViewer>
 </Window>

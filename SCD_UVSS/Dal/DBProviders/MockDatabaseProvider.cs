@@ -67,5 +67,10 @@ namespace SCD_UVSS.Dal.DBProviders
 
             return dbResult;
         }
+
+        public DbImageResult GetImageResult(string uniqueId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

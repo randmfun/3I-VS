@@ -31,8 +31,15 @@ namespace SCD_UVSS.View
             this._mainCameraViewModel = new MainCameraViewModel(dataAccessLayer);
             this._mainCameraViewModel.ShowMessage += _mainCameraViewModel_ShowMessage;
             this.DataContext = this._mainCameraViewModel;
+        }
 
-            //this.brandImage.Source = (ImageSource) Resources["LOGO"];
+        // For Search View
+        public MainCameraView(string vehicleNumber, byte[] chasisImage, byte[] carTopImage, byte[] driverImage)
+        {
+            InitializeComponent();
+
+            this._mainCameraViewModel = new MainCameraViewModel(vehicleNumber, chasisImage, carTopImage, driverImage);
+            this.DataContext = this._mainCameraViewModel;
         }
 
         void _mainCameraViewModel_ShowMessage(string errorMessage)

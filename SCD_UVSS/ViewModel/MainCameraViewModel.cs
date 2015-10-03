@@ -44,7 +44,7 @@ namespace SCD_UVSS.ViewModel
             this._dataAccessLayer = dataAccessLayer;
             this.StartRecordingCmd = new RelayCommand(StartRecordingHandler);
 
-            this._vehicleNumber = "TN 07 1234";
+            this._vehicleNumber = "TN 00 0000";
             this._chasisImage = this.GetDefaultImage("no-chasis.jpg");
             this._carTopViewImage = this.GetDefaultImage("no-car-topview.jpg");
             this._driverImage = this.GetDefaultImage("no-driver.jpg");
@@ -56,6 +56,15 @@ namespace SCD_UVSS.ViewModel
 
             //TestSticher();
             //this.StartRecordingThread();
+        }
+
+        // For Search View
+        public MainCameraViewModel(string vehicleNumber, byte[] chasisImage, byte[] carTopImage, byte[] driverImage)
+        {
+            this._vehicleNumber = vehicleNumber;
+            this._chasisImage = ImageUtils.ByteArrayToBitMapImage(chasisImage);
+            this._carTopViewImage = ImageUtils.ByteArrayToBitMapImage(carTopImage);
+            this._driverImage = ImageUtils.ByteArrayToBitMapImage(driverImage);
         }
 
         public void StartRecordingHandler(object obj)

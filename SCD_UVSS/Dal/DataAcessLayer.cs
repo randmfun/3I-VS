@@ -60,6 +60,11 @@ namespace SCD_UVSS.Dal
             return this._databaseProvider.Search(dbSearchRequestModel);
         }
 
+        public DbImageResult GetImageResult(string uniqueId)
+        {
+            return this._databaseProvider.GetImageResult(uniqueId);
+        }
+
         public StringBuilder ValidateGateInformation(Gate gate)
         {
             var errorMsg = new StringBuilder();

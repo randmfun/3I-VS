@@ -51,7 +51,6 @@ namespace SCD_UVSS.ViewModel
             get; set;
         }
 
-        int _dummySearchId = 1;
         public void Search(object arg)
         {
             var startDateWithTime = new DateTime(this.StartDateTime.Year, this.StartDateTime.Month, this.StartDateTime.Day, 
@@ -70,11 +69,12 @@ namespace SCD_UVSS.ViewModel
             var listDbResultModels = this._dataAccessLayer.Search(dalSearchModel);
 
             // Update the View
+            this.SearchDataList.Clear();
             foreach (var dbSearchResultModel in listDbResultModels)
             {
-                this.SearchDataList.Add(new SearchDataViewItem()
+                this.SearchDataList.Add(new SearchDataViewItem(this._dataAccessLayer)
                 {
-                    ID = (_dummySearchId++).ToString(),
+                    ID = dbSearchResultModel.UniqueId,
                     Date = dbSearchResultModel.EntryDateTime,
                     VehicleNumber = dbSearchResultModel.VehicleNumber
                 });
@@ -87,6 +87,8 @@ namespace SCD_UVSS.ViewModel
         private string _id;
         private DateTime _date;
 
+        private DataAccessLayer dataAccessLayer;
+
         public ICommand ShowImage { get; set; }
 
         public SearchDataViewItem()
@@ -94,6 +96,11 @@ namespace SCD_UVSS.ViewModel
             this.ShowImage = new RelayCommand(this.ShowImageCallback);
             this._id = "1";
             this._date = DateTime.Now;
+        }
+
+        public SearchDataViewItem(DataAccessLayer dataAccessLayer):this()
+        {
+            this.dataAccessLayer = dataAccessLayer;
         }
         
         public string ID
@@ -115,7 +122,7 @@ namespace SCD_UVSS.ViewModel
 
         public void ShowImageCallback(object args)
         {
-            var camImagesViewWindow = new CameraImagesViewWindow();
+            var camImagesViewWindow = new CameraImagesViewWindow(this.dataAccessLayer, this.ID, this.VehicleNumber);
             camImagesViewWindow.ShowDialog();
         }
     }

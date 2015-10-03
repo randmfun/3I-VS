@@ -27,14 +27,26 @@ namespace SCD_UVSS.Dal.DBProviders
         Gate ReadGateInfo();
 
         IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel);
+
+        DbImageResult GetImageResult(string uniqueId);
     }
     
     public class DbSearchResultModel
     {
+        public DbSearchResultModel(DateTime entDateTime, string vehicleNumber, string uniqueId)
+        {
+            this.EntryDateTime = entDateTime;
+            this.VehicleNumber = vehicleNumber;
+            this.UniqueId = uniqueId;
+        }
+
+        public DbSearchResultModel() { }
+
         public DateTime EntryDateTime { get; set; }
 
         public string VehicleNumber { get; set; }
 
+        public string UniqueId { get; set; }
     }
 
     public class DbSearchRequestModel
@@ -45,4 +57,12 @@ namespace SCD_UVSS.Dal.DBProviders
 
         public string VehicleNumber { get; set; }
     }
+
+    public class DbImageResult
+    {
+        public byte[] ChasisImage { get; set; }
+        public byte[] DriverImage { get; set; }
+        public byte[] CarFullImage { get; set; }
+    }
+
 }
