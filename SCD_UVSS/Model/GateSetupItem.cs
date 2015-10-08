@@ -52,7 +52,7 @@ namespace SCD_UVSS.Model
     public class GateComPortSetupItem : GateSetupItem
     {
         public GateComPortSetupItem(string address)
-            : base("COM Port")
+            : base("COM Port :")
         {
             this.Address = address;
         }
@@ -61,7 +61,16 @@ namespace SCD_UVSS.Model
     public class GateNameSetupItem : GateSetupItem
     {
         public GateNameSetupItem(string address)
-            : base("Gate Name")
+            : base("Gate Name :")
+        {
+            this.Address = address;
+        }
+    }
+
+    public class GateVehicleNumberSaveLoc : GateSetupItem
+    {
+        public GateVehicleNumberSaveLoc(string address)
+            : base("Vehicle Number Save Location : ")
         {
             this.Address = address;
         }

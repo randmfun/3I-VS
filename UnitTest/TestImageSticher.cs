@@ -11,7 +11,7 @@ using SCD_UVSS.ImageProcessor;
 namespace UnitTest
 {
     [TestFixture]
-    //[Ignore("Ignore Image Sticher")]
+    [Ignore("Ignore Image Sticher")]
     public class TestImageSticher
     {
         public void DeleteFile(string absFilePath)

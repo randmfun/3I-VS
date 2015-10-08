@@ -54,7 +54,7 @@ namespace UnitTest
         public void TestValidateGateInformationNoSavePath()
         {
             var gateModel = new Gate("one");
-            gateModel.Cameras.Add(new CameraModel());
+            gateModel.Cameras.Add(new CameraModel(){SavePath = string.Empty});
 
             var dataAccesslayer = new DataAccessLayer(new MockDatabaseProvider());
             var hasError = dataAccesslayer.ValidateGateInformation(gateModel);

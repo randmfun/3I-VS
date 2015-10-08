@@ -97,6 +97,10 @@ namespace SCD_UVSS.ViewModel
                 {
                     gate.Name = gateSetupItem.Address;
                 }
+                else if (gateSetupItem is GateVehicleNumberSaveLoc)
+                {
+                    gate.VehicleNumberSaveFolder = gateSetupItem.Address;
+                }
             }
 
             return gate;
@@ -111,7 +115,8 @@ namespace SCD_UVSS.ViewModel
                 var gateSetupItems = new ObservableCollection<GateSetupItem>
                 {
                     new GateNameSetupItem(gateInfo.Name),
-                    new GateComPortSetupItem(gateInfo.ComPortName)
+                    new GateComPortSetupItem(gateInfo.ComPortName),
+                    new GateVehicleNumberSaveLoc(gateInfo.VehicleNumberSaveFolder)
                 };
 
                 foreach (var camera in gateInfo.Cameras)

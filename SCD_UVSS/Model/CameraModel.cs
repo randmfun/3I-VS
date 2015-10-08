@@ -10,6 +10,7 @@ namespace SCD_UVSS.Model
             this.ID = 0;
             this.Description = string.Empty;
             this.IpAddress = "255.255.255.255";
+            this.SavePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
         public int ID { get; set; }

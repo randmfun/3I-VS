@@ -16,13 +16,14 @@ namespace UnitTest.ViewModel
         private const string ExpectedCom = "COM1";
         private const string ExpectedIpAddress = "255.255.255.255";
         private const string GateId = "Gate_ID";
-        private const string ExpectedSavePath = @"F:\save\me\here";
+        private const string ExpectedSavePath = @"F:\save\camerapic\here";
+        private const string ExpectedVehicleNumberSavePath = @"F:\save\vehiclenumber\here";
 
         private Gate ConstructGate()
         {
             const int expectedCamId = 1;
 
-            var gateModel = new Gate(GateId) { ComPortName = ExpectedCom, Name = ExpectedGateName };
+            var gateModel = new Gate(GateId) { ComPortName = ExpectedCom, Name = ExpectedGateName, VehicleNumberSaveFolder = ExpectedVehicleNumberSavePath };
             gateModel.Cameras.Add(new CameraModel() { ID = expectedCamId, IpAddress = ExpectedIpAddress, SavePath = ExpectedSavePath });
 
             return gateModel;
@@ -58,6 +59,7 @@ namespace UnitTest.ViewModel
             Assert.IsInstanceOf(typeof(CameraModel), readGate.Cameras[0]);
             Assert.AreEqual(readGate.Cameras[0].IpAddress, ExpectedIpAddress);
             Assert.AreEqual(readGate.Cameras[0].SavePath, ExpectedSavePath);
+            Assert.AreEqual(readGate.VehicleNumberSaveFolder, ExpectedVehicleNumberSavePath);
             Assert.AreEqual(readGate.ComPortName, ExpectedCom);
         }
 
@@ -67,7 +69,7 @@ namespace UnitTest.ViewModel
             var gate = this.ConstructGate();
             var gateSetupViewModel = this.ConstructGateSetupViewModel();
             var gateSetupUpItems = gateSetupViewModel.ConstructSavedGateSetupItems(gate);
-            Assert.AreEqual(gateSetupUpItems.Count, 3);
+            Assert.AreEqual(gateSetupUpItems.Count, 4);
 
             foreach (var gateSetupItem in gateSetupUpItems)
             {
@@ -83,6 +85,10 @@ namespace UnitTest.ViewModel
                 {
                     Assert.AreEqual(((GateCameraSetupItem)(gateSetupItem)).SavePath, ExpectedSavePath);
                 }
+                else if (gateSetupItem is GateVehicleNumberSaveLoc)
+                {
+                    Assert.AreEqual(gateSetupItem.Address, ExpectedVehicleNumberSavePath);
+                }
             }
         }
 
@@ -97,6 +103,7 @@ namespace UnitTest.ViewModel
 
             Assert.AreEqual(gateNew.ComPortName, ExpectedCom);
             Assert.AreEqual(gateNew.Name, ExpectedGateName);
+            Assert.AreEqual(gateNew.VehicleNumberSaveFolder, ExpectedVehicleNumberSavePath);
             Assert.AreEqual(gateNew.Cameras.Count, 1);
         }
     }

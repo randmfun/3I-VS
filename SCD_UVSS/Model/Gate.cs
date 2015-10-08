@@ -46,6 +46,8 @@ namespace SCD_UVSS.Model
         {
             get; set;
         }
+
+        public string VehicleNumberSaveFolder { get; set; }
     }
 
 }

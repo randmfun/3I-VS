@@ -31,7 +31,7 @@
                         <TextBox Text="{Binding Address}" Width="150" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
                         <TextBox Text="{Binding SavePath}" Margin="10,0" ToolTip="{Binding SavePath}"
                                  Visibility="{Binding IsPathVisible, Converter={StaticResource BoolToVis}}"
-                                 Width="150" Height="30" VerticalContentAlignment="Center"/>
+                                 Width="200" Height="30" VerticalContentAlignment="Center"/>
                     </StackPanel>
                     </GroupBox>
                 </DataTemplate>
