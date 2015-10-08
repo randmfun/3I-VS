@@ -33,7 +33,7 @@ namespace SCD_UVSS.ViewModel
 
         private bool _isBlackListed;
 
-        private readonly MockRecordManager _recordManager = null;
+        private readonly RecordManager _recordManager = null;
 
         public event ErrorMessageDelegate ShowMessage;
 
@@ -50,7 +50,7 @@ namespace SCD_UVSS.ViewModel
             this._driverImage = this.GetDefaultImage("no-driver.jpg");
 
             var gateProvider = new GateProvider(this._dataAccessLayer.ReadGateInfo());
-            this._recordManager = new MockRecordManager(gateProvider, dataAccessLayer);
+            this._recordManager = new RecordManager(gateProvider, dataAccessLayer);
 
             this._thread = new Thread(RecordDelegate);
 

@@ -14,7 +14,6 @@ namespace SCD_UVSS.helpers
         public static BitmapImage ByteArrayToBitMapImage(byte[] array)
         {
             var bitMapImage = new BitmapImage();
-
             bitMapImage.BeginInit();
             bitMapImage.StreamSource = new System.IO.MemoryStream(array);
             bitMapImage.EndInit();
