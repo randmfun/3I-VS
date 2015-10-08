@@ -6,6 +6,7 @@ using System.Text;
 using SCD_UVSS.Model;
 using SCD_UVSS.SystemInput.Camera;
 using SCD_UVSS.SystemInput.COM;
+using SCD_UVSS.SystemInput.LicenceNo;
 
 namespace SCD_UVSS.SystemInput
 {
@@ -15,6 +16,8 @@ namespace SCD_UVSS.SystemInput
 
         private IComPortProvider _comPortProvider;
 
+        private LicenceNumberProvider _licenceNumberProvider;
+
         private IEnumerable<ICameraProvider> _cameraProviders;
 
         public GateProvider(Gate gate)
@@ -23,6 +26,13 @@ namespace SCD_UVSS.SystemInput
 
             this._comPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
             this._cameraProviders = this.Gate.Cameras.Select(x => new HikVisionCameraProvider(x));
+            this._licenceNumberProvider = new LicenceNumberProvider(this.Gate.VehicleNumberSaveFolder);
+        }
+
+        public LicenceNumberProvider LicenceNumberProvider
+        {
+            get { return this._licenceNumberProvider; }
+            set { this._licenceNumberProvider = value; }
         }
 
         public IComPortProvider ComPortProvider

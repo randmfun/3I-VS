@@ -56,17 +56,23 @@ namespace SCD_UVSS.Controller
             vehicleBasicInfoModel = null;
             vehicleImagesModel = null;
 
-            if (!this.HasLoopStarted()) return false;
+            try
+            {
+                if (!this.HasLoopStarted()) return false;
 
-            // There is a NEW Vehicle entered, Start capturing
-            this.RecordCurrentSnapshots(out vehicleBasicInfoModel, out  vehicleImagesModel);
+                // There is a NEW Vehicle entered, Start capturing
+                this.RecordCurrentSnapshots(out vehicleBasicInfoModel, out vehicleImagesModel);
 
-            // Done Capturing, signal Firmware
-            this.EndLoop();
-            return true;
+                // Done Capturing, signal Firmware
+                this.EndLoop(vehicleBasicInfoModel.IsBlackListed);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("StartRecordingInfo Failed, Exception ", ex);
+                return false;
+            }
         }
-
-        private static int vehichlenumber = 123;
 
         public void RecordCurrentSnapshots(out VehicleBasicInfoModel vehicleBasicInfoModel, out VehicleImagesModel vehicleImagesModel)
         {
@@ -79,10 +85,10 @@ namespace SCD_UVSS.Controller
             };
 
             //vehicleBasicInfoModel.Number = ""
-            var number = vehichlenumber++;
+            var vehicleNumber = this.GateProvider.LicenceNumberProvider.Read();
 
-            vehicleBasicInfoModel.Number = number.ToString();
-            vehicleBasicInfoModel.IsBlackListed = this.IsBlackListedNumber(number.ToString());
+            vehicleBasicInfoModel.Number = vehicleNumber;
+            vehicleBasicInfoModel.IsBlackListed = this.IsBlackListedNumber(vehicleNumber);
 
             vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
             
@@ -129,12 +135,15 @@ namespace SCD_UVSS.Controller
             return false;
         }
 
-        private void EndLoop()
+        private void EndLoop(bool isBlacklisted)
         {
             try
             {
                 Logger.Info("End Loop ..");
-                const string endLoopMessage = "E";
+                const string blackListedMessage = "B";
+                const string safelyEndMessage = "E";
+
+                string endLoopMessage = isBlacklisted ? blackListedMessage : safelyEndMessage;
                 this.GateProvider.ComPortProvider.Write(endLoopMessage);
             }
             catch (Exception ex)

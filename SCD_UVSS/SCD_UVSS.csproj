@@ -147,6 +147,7 @@
     <Compile Include="SystemInput\COM\MockComProvider.cs" />
     <Compile Include="SystemInput\GateProvider.cs" />
     <Compile Include="SystemInput\ImageExtensions.cs" />
+    <Compile Include="SystemInput\LicenceNo\LicenceNumberProvider.cs" />
     <Compile Include="ViewModel\BlackListViewModel.cs" />
     <Compile Include="ViewModel\GateSetupViewModel.cs" />
     <Compile Include="ViewModel\MainCameraViewModel.cs" />

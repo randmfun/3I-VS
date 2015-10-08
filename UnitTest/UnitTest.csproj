@@ -79,6 +79,7 @@
     <Compile Include="TestGateProviders.cs" />
     <Compile Include="TestHikVisionCameraProvider.cs" />
     <Compile Include="TestImageSticher.cs" />
+    <Compile Include="TestLicenceNumberProvider.cs" />
     <Compile Include="TestMySqlDatabaseProvider.cs" />
     <Compile Include="TestRecordManger.cs" />
     <Compile Include="ViewModel\TestBlackListViewModel.cs" />
@@ -93,6 +94,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\LicenceNoLoc\VehicleNumber.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\split_1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -100,6 +104,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
