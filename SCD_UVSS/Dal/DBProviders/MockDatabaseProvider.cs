@@ -17,12 +17,12 @@ namespace SCD_UVSS.Dal.DBProviders
 
         public bool Open()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool Close()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool AddBlackListItem(BlackListItem blackListItem)
@@ -38,22 +38,22 @@ namespace SCD_UVSS.Dal.DBProviders
 
         public bool AddVehicleEntryBasicInfo(VehicleBasicInfoModel vehicleBasicInfoModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool AddVehicleEntryImges(VehicleImagesModel vehicleImagesModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool AddGateInfo(Gate gate)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public Gate ReadGateInfo()
         {
-            throw new NotImplementedException();
+            return new Gate("");
         }
 
         public IEnumerable<DbSearchResultModel> Search(DbSearchRequestModel dbSearchRequestModel)
@@ -62,7 +62,7 @@ namespace SCD_UVSS.Dal.DBProviders
 
             for (int i = 211; i < 222; i++)
             {
-                dbResult.Add(new DbSearchResultModel() { EntryDateTime = DateTime.Now, VehicleNumber = "TN 07 J 4321" });
+                dbResult.Add(new DbSearchResultModel() { EntryDateTime = DateTime.Now, VehicleNumber = "TN 07 J 1234" });
             }
 
             return dbResult;

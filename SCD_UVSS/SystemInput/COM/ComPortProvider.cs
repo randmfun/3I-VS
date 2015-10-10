@@ -16,6 +16,13 @@ namespace SCD_UVSS.SystemInput.COM
         {
             this.SerialPort = serialPort;
 
+            //8bits, no parity, no hand shake, 1 stop bit, 115kbps
+            this.SerialPort.BaudRate = 9600;
+            this.SerialPort.Parity = Parity.None;
+            this.SerialPort.StopBits = StopBits.One;
+            this.SerialPort.DataBits = 8;
+            this.SerialPort.Handshake = Handshake.None;
+            
             // Set the read/write timeouts
             this.SerialPort.ReadTimeout = 500;
             this.SerialPort.WriteTimeout = 500;

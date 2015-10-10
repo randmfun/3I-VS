@@ -53,11 +53,22 @@ namespace SCD_UVSS.ViewModel
 
         public void Search(object arg)
         {
+            var startHour = int.Parse(this.StartTimeSpanViewModel.SelectedHour);
+            if(this.StartTimeSpanViewModel.SelectedSession == "PM")
+            {
+                startHour += 12;
+            }
+
+            var endHour = int.Parse(this.EndTimeSpanViewModel.SelectedHour);
+            if (this.EndTimeSpanViewModel.SelectedSession == "PM")
+            {
+                endHour += 12;
+            }
             var startDateWithTime = new DateTime(this.StartDateTime.Year, this.StartDateTime.Month, this.StartDateTime.Day, 
-                int.Parse(this.StartTimeSpanViewModel.SelectedHour), int.Parse(this.StartTimeSpanViewModel.SelectedMinute), 0);
+                startHour, int.Parse(this.StartTimeSpanViewModel.SelectedMinute), 0);
 
             var endDateWithTime = new DateTime(this.EndDateTime.Year, this.EndDateTime.Month, this.EndDateTime.Day,
-                int.Parse(this.EndTimeSpanViewModel.SelectedHour), int.Parse(this.EndTimeSpanViewModel.SelectedMinute), 0);
+                endHour, int.Parse(this.EndTimeSpanViewModel.SelectedMinute), 0);
 
             var dalSearchModel = new DbSearchRequestModel()
             {

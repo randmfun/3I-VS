@@ -162,7 +162,11 @@ namespace SCD_UVSS.Controller
         protected void OnVehicleInformationRecived(VehicleBasicInfoModel vehicleBasicInfoModel, VehicleImagesModel vehicleImagesModel)
         {
             if (VehicleInformationRecived != null)
+            {
                 this.VehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
+                this._dataAccessLayer.AddVehicleEntryBasicInfo(vehicleBasicInfoModel);
+                this._dataAccessLayer.AddVehicleEntryImges(vehicleImagesModel);
+            }
         }
     }
 }

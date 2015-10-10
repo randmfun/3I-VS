@@ -38,7 +38,19 @@ namespace SCD_UVSS.ViewModel
         public event ErrorMessageDelegate ShowMessage;
 
         public ICommand StartRecordingCmd { get; set; }
-        
+
+        public string startRecordButtonContent = "Start Recording";
+
+        public string StartRecordButtonContent
+        {
+            get { return startRecordButtonContent; }
+            set
+            {
+                startRecordButtonContent = value;
+                OnPropertyChanged("StartRecordButtonContent");
+            }
+        }
+
         public MainCameraViewModel(DataAccessLayer dataAccessLayer)
         {
             this._dataAccessLayer = dataAccessLayer;
@@ -53,9 +65,6 @@ namespace SCD_UVSS.ViewModel
             this._recordManager = new RecordManager(gateProvider, dataAccessLayer);
 
             this._thread = new Thread(RecordDelegate);
-
-            //TestSticher();
-            //this.StartRecordingThread();
         }
 
         // For Search View
@@ -143,9 +152,12 @@ namespace SCD_UVSS.ViewModel
             this._recordManager.ContinueRecording = true;
             if (!this._thread.IsAlive)
             {
+                this.StartRecordButtonContent = "Recording..";
+
                 this._thread.IsBackground = true;
                 this._thread.SetApartmentState(ApartmentState.STA);
                 this._thread.Start();
+                
             }
         }
 

@@ -36,8 +36,8 @@
         </ScrollViewer>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-            <Button Margin="10" Content="Start Recording.." Command="{Binding StartRecordingCmd}" FontWeight="Bold" FontSize="30" />
-            <Button Margin="10" Background="Red" FontWeight="Bold" Height="50" Width="50" ToolTip="Blacklisted.."/>
+            <Button Margin="10" Content="{Binding StartRecordButtonContent}" Command="{Binding StartRecordingCmd}" FontWeight="Bold" FontSize="30" />
+            <!--<Button Margin="10" Background="Red" FontWeight="Bold" Height="50" Width="50" ToolTip="Blacklisted.."/>-->
         </StackPanel>
         <TextBlock Text="{Binding VehicleNumber}" FontWeight="ExtraBlack" FontSize="60"
                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"

@@ -19,7 +19,7 @@ namespace SCD_UVSS.ViewModel
             get; set;
         }
 
-        public IEnumerable<string> Sessions { get; set; } 
+        public ObservableCollection<string> Sessions { get; set; } 
 
         public string SelectedHour { get; set; }
 
@@ -36,7 +36,7 @@ namespace SCD_UVSS.ViewModel
         {
             this.Hours = Enumerable.Range(0, 12).Select(x => string.Format("{0:00}", x));
             this.Minutes = new List<string> { "00", "15", "30", "45" };
-            this.Sessions = new List<string> {"AM", "PM"};
+            this.Sessions = new ObservableCollection<string> {"AM", "PM"};
 
             this.SelectedHour = this.Hours.First();
             this.SelectedMinute = this.Minutes.First();

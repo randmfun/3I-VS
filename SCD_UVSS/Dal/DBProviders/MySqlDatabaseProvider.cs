@@ -14,7 +14,6 @@ namespace SCD_UVSS.Dal.DBProviders
     public class MySqlDatabaseProvider : IDatabaseProvider
     {
         MySqlConnection connection;
-        //MySqlDataAdapter adapter;
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(GateSetupViewModel));
 
