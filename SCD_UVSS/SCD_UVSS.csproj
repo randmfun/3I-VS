@@ -128,12 +128,17 @@
     <Compile Include="Dal\DBProviders\IDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MockDatabaseProvider.cs" />
     <Compile Include="Dal\DBProviders\MySqlDatabaseProvider.cs" />
+    <Compile Include="Dal\UserManager.cs" />
+    <Compile Include="Dal\UserProvider\BinaryUserProvider.cs" />
+    <Compile Include="Dal\UserProvider\IUserProvider.cs" />
+    <Compile Include="Dal\UserProvider\MockUserProvider.cs" />
     <Compile Include="helpers\DateTimeSyntaticSugars.cs" />
     <Compile Include="helpers\ImageUtils.cs" />
     <Compile Include="helpers\SerializeUtility.cs" />
     <Compile Include="ImageProcessor\ImageSticher.cs" />
     <Compile Include="Model\GateSetupItem.cs" />
     <Compile Include="Model\UserExceptions.cs" />
+    <Compile Include="Model\UserInfo.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Registers\Installers.cs" />
     <Compile Include="Model\BlackListItem.cs" />

@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBinaryUserProvider.cs" />
     <Compile Include="TestCameraProvider.cs" />
     <Compile Include="TestDataAccessLayer.cs" />
     <Compile Include="TestDateTimeSugars.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="TestLicenceNumberProvider.cs" />
     <Compile Include="TestMySqlDatabaseProvider.cs" />
     <Compile Include="TestRecordManger.cs" />
+    <Compile Include="TestUserManager.cs" />
     <Compile Include="ViewModel\TestBlackListViewModel.cs" />
     <Compile Include="ViewModel\TestGateSetupViewModel.cs" />
     <Compile Include="ViewModel\TestSearchViewModel.cs" />
