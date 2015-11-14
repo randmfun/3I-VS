@@ -15,12 +15,19 @@ namespace SCD_UVSS.Model
     [Serializable]
     public class UserInfo
     {
+        private string _id;
+
         public UserInfo()
         {
             this.Name = string.Empty;
             this.Password = string.Empty;
-
+            this._id = Guid.NewGuid().ToString();
             this.Role = Roles.Operator;
+        }
+
+        public string ID
+        {
+            get { return this._id; }
         }
 
         public string Name { get; set; }

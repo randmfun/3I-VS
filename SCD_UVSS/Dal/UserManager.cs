@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Castle.Windsor.Installer;
+using log4net;
 using SCD_UVSS.Dal.UserProvider;
 using SCD_UVSS.Model;
 
@@ -10,10 +11,20 @@ namespace SCD_UVSS.Dal
 {
     public class UserManager
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(UserManager));
 
         private UserInfo _loggedInUser;
+        private static UserManager _instance = null;
 
         public readonly IUserProvider UserProvider;
+
+        public static UserManager Instance
+        {
+            get
+            {
+                return _instance ?? (_instance = new UserManager(new BinaryUserProvider()));
+            }
+        }
 
         public UserManager(IUserProvider provider)
         {
@@ -32,21 +43,41 @@ namespace SCD_UVSS.Dal
 
         public void AddUsers(UserInfo userInfo)
         {
+            logger.Info("Adding User" + userInfo.Name);
             this.UserProvider.AddUser(userInfo);
+            logger.Info("Done Adding User" + userInfo.Name);
         }
 
         public void SaveUsers()
         {
+            logger.Info("Saving Users");
             this.UserProvider.SaveUsers();
+            logger.Info("Saved Users");
+        }
+
+        public void UpdateUserInfo(UserInfo userInfo, string username, string password)
+        {
+            logger.Info("Updating User" + userInfo.Name);
+            this.UserProvider.UpdateUserInfo(userInfo, username, password);
+            logger.Info("Updated User" + userInfo.Name);
+        }
+
+        public void UpdatePassword(string username, string password)
+        {
+            logger.Info("Updating Password" + username);
+            this.UserProvider.UpdatePassword(username, password);
+            logger.Info("Updated Password" + username);
         }
 
         public void SetLoggedInUser(UserInfo userInfo)
         {
+            logger.Info("Logged in user" + userInfo.Name);
             this._loggedInUser = userInfo;
         }
 
         public void SetLoggedInUser(string userName)
         {
+            logger.Info("Logged in user" + userName);
             var users = this.GetUsersList();
 
             var info = from userInfo in users
@@ -64,7 +95,7 @@ namespace SCD_UVSS.Dal
             var isValidUser = users.Any(user => user.Name == userName);
             if (!isValidUser)
             {
-                errorMsg = "No such user in the system : " + userName;
+                errorMsg = "Invalid User Name : " + userName;
                 return false;
             }
 
@@ -77,5 +108,6 @@ namespace SCD_UVSS.Dal
 
             return true;
         }
+        
     }
 }

@@ -26,54 +26,30 @@ namespace SCD_UVSS
             {
                 logger.Info("Application Starting!!");
 
+                if (!this.GrantAccess())
+                {
+                    logger.Error("Log in Failed!!");
+                    this.Close();
+                    return;
+                }
+
+                logger.Info("Logged In!!");
+
                 InitializeComponent();
-                this._mainTabViewModel = new MainTabViewModel();
-                this.mainTabCtrl.DataContext = this._mainTabViewModel;
+                this.InitializeApplication();
 
                 logger.Info("Application Started!!");
                 
             }
             catch (Exception ex)
             {
-                logger.Error("Application Crashed.");
-                logger.Fatal(ex);
+                logger.Error("Application Crashed.", ex);
+                logger.Fatal(ex.Message, ex);
+                MessageBox.Show("Application Crashed!! Check Log file for more details!!");
+                this.Close();
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //this.cameraListViewModel.Update();
-
-            var trip_id_guid = Guid.NewGuid();
-            var trip_image_guid = Guid.NewGuid();
-            /*
-            var tripInfo = TripInfo.CreateTripInfo(trip_id_guid, DateTime.Now, "TNO7 5689",);
-            var tripImage = TripImage.CreateTripImage(guid, GetImage(), GetImage(), GetImage(), GetImage());
-
-            Entities entities = new Entities();
-
-            entities.AddToTripInfoes(tripInfo);
-            entities.SaveChanges();
-
-            //entities.AddToTripImages(tripImage);
-            //entities.SaveChanges();
-             * */
-        }
-
-        byte[] GetImage()
-        {
-            var file_name = @"D:\me.jpg";
-            byte[] data;
-
-            using(FileStream fstrm=new FileStream(file_name, FileMode.Open))
-            {
-                data = new byte[fstrm.Length];
-                fstrm.Read(data, 0, (int) fstrm.Length);
-            }
-            return data;
-        }
-
-
+        
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -90,6 +66,25 @@ namespace SCD_UVSS
                 }
                 _windowStateFullScreen = !_windowStateFullScreen;
             }
+        }
+
+        private bool GrantAccess()
+        {
+            logger.Info("Show Log In Screen!!");
+
+            var loginWindow = new LogInWindow();
+            var result = loginWindow.ShowDialog();
+
+            if (result.HasValue)
+                return result.Value;
+
+            return false;
+        }
+
+        private void InitializeApplication()
+        {
+            this._mainTabViewModel = new MainTabViewModel();
+            this.mainTabCtrl.DataContext = this._mainTabViewModel;
         }
     }
     

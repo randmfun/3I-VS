@@ -37,6 +37,21 @@ namespace SCD_UVSS.Dal.UserProvider
             return new List<UserInfo>();
         }
 
+        public void UpdateUserInfo(UserInfo userInfo, string username, string password)
+        {
+            var users = this.GetUsersList();
+            var foundUserInfo = users.Find(item => item.ID == userInfo.ID);
+            foundUserInfo.Password = password;
+            foundUserInfo.Name = username;
+        }
+
+        public void UpdatePassword(string userName, string password)
+        {
+            var users = this.GetUsersList();
+            var foundUserInfo = users.Find(item => item.Name == userName);
+            foundUserInfo.Password = password;
+        }
+
         /// <summary>
         /// TESTING HACK ONLY
         /// </summary>

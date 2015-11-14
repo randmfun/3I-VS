@@ -17,6 +17,7 @@ namespace SCD_UVSS.Registers
                 .Register(Component.For<MainCameraView>().LifestyleSingleton())
                 .Register(Component.For<SearchView>().LifestyleSingleton())
                 .Register(Component.For<GateView>().LifestyleSingleton())
+                .Register(Component.For<UserManagerView>().LifestyleSingleton())
                 .Register(Component.For<BlackListView>().LifestyleSingleton());
         }
     }

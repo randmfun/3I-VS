@@ -11,5 +11,7 @@ namespace SCD_UVSS.Dal.UserProvider
         List<UserInfo> GetUsersList();
         void SaveUsers();
         void AddUser(UserInfo userInfo);
+        void UpdatePassword(string userName, string password);
+        void UpdateUserInfo(UserInfo userInfo, string username, string password);
     }
 }

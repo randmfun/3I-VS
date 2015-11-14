@@ -58,20 +58,75 @@ namespace UnitTest
             Assert.AreNotEqual(usersList[1].Role, Roles.Admin);
             Assert.AreNotEqual(usersList[1].Role, Roles.Operator);
         }
-
-
+        
         //[Test]
         public void CreateASavedUserBinaryImage()
         {
             var binUserProvider = this.constructBinaryUserProvider();
 
-            binUserProvider.AddUser(new UserInfo() { Name = "super", Password = "JamesBond007", Role = Roles.Developer});
-            binUserProvider.AddUser(new UserInfo() { Name = "admin", Password = "Admin123", Role = Roles.Admin });
-            binUserProvider.AddUser(new UserInfo() { Name = "OperatorDavid", Password = "Operator123", Role = Roles.Operator });
+            binUserProvider.AddUser(new UserInfo { Name = "super", Password = "JamesBond007", Role = Roles.Developer});
+            binUserProvider.AddUser(new UserInfo { Name = "admin", Password = "Admin123", Role = Roles.Admin });
+            binUserProvider.AddUser(new UserInfo { Name = "OperatorOne", Password = "Operator123", Role = Roles.Operator });
+            binUserProvider.AddUser(new UserInfo { Name = "OperatorTwo", Password = "Operator123", Role = Roles.Operator });
+            binUserProvider.AddUser(new UserInfo { Name = "OperatorThree", Password = "Operator123", Role = Roles.Operator });
+            binUserProvider.AddUser(new UserInfo { Name = "OperatorFour", Password = "Operator123", Role = Roles.Operator });
 
-            // Save and Read together
+            // Save
             binUserProvider.SaveUsers();
-            var usersList = binUserProvider.ReadSavedUserInfos();
+        }
+
+        [Test]
+        public void TestUpdatePasswordInMemory()
+        {
+            const string expectedUser = "super";
+            const string expectedOldPassword = "JamesBond007";
+            const string expectedNewPassword = "newPassword";
+
+            var binUserProvider = this.constructBinaryUserProvider();
+            binUserProvider.AddUser(new UserInfo { Name = expectedUser, Password = expectedOldPassword, Role = Roles.Developer });
+
+            binUserProvider.UpdatePassword(expectedUser, expectedNewPassword);
+
+            var users = binUserProvider.GetUsersList();
+            Assert.IsTrue(users.Any(item => (item.Name == expectedUser && item.Password == expectedNewPassword)));
+            Assert.IsFalse(users.Any(item => (item.Name == expectedUser && item.Password == expectedOldPassword)));
+        }
+
+        [Test]
+        public void TestUpdatePasswordSavedUser()
+        {
+            const string expectedUser = "super";
+            const string expectedOldPassword = "JamesBond007";
+            const string expectedNewPassword = "newPassword";
+
+            var binUserProvider = this.constructBinaryUserProvider();
+            binUserProvider.AddUser(new UserInfo { Name = expectedUser, Password = expectedOldPassword, Role = Roles.Developer });
+
+            binUserProvider.UpdatePassword(expectedUser, expectedNewPassword);
+            binUserProvider.SaveUsers();
+
+            var users = binUserProvider.ReadSavedUserInfos();
+            Assert.IsTrue(users.Any(item => (item.Name == expectedUser && item.Password == expectedNewPassword)));
+            Assert.IsFalse(users.Any(item => (item.Name == expectedUser && item.Password == expectedOldPassword)));
+        }
+
+        [Test]
+        public void TestUpdateUserInfo()
+        {
+            const string expectedUser = "super";
+            const string expectedNewUser = "superNew";
+            const string expectedOldPassword = "JamesBond007";
+            const string expectedNewPassword = "newPassword";
+
+            var binUserProvider = this.constructBinaryUserProvider();
+            var userInfo = new UserInfo {Name = expectedUser, Password = expectedOldPassword, Role = Roles.Developer};
+            binUserProvider.AddUser(userInfo);
+
+            binUserProvider.UpdateUserInfo(userInfo, expectedNewUser, expectedNewPassword);
+
+            var users = binUserProvider.GetUsersList();
+            Assert.IsTrue(users.Any(item => (item.Name == expectedNewUser && item.Password == expectedNewPassword)));
+            Assert.IsFalse(users.Any(item => (item.Name == expectedNewUser && item.Password == expectedOldPassword)));
         }
     }
 }

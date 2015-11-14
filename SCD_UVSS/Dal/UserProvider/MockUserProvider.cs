@@ -20,6 +20,16 @@ namespace SCD_UVSS.Dal.UserProvider
             return this.savedUserInfos;
         }
 
+        public void UpdateUserInfo(UserInfo userInfo, string username, string password)
+        {
+         
+        }
+
+        public void UpdatePassword(string userName, string password)
+        {
+         
+        }
+
         public void SaveUsers()
         {
             

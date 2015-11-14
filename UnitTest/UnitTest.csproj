@@ -85,6 +85,7 @@
     <Compile Include="TestUserManager.cs" />
     <Compile Include="ViewModel\TestBlackListViewModel.cs" />
     <Compile Include="ViewModel\TestGateSetupViewModel.cs" />
+    <Compile Include="ViewModel\TestMainTabViewModel.cs" />
     <Compile Include="ViewModel\TestSearchViewModel.cs" />
     <Compile Include="ViewModel\TestTimeSpanViewModel.cs" />
   </ItemGroup>
