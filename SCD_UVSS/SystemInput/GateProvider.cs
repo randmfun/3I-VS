@@ -24,7 +24,8 @@ namespace SCD_UVSS.SystemInput
         {
             this.Gate = gate;
 
-            this._comPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
+            //this._comPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
+            this._comPortProvider = new MockComProvider(){MockReadString = "S"};
             this._cameraProviders = this.Gate.Cameras.Select(x => new HikVisionCameraProvider(x));
             this._licenceNumberProvider = new LicenceNumberProvider(this.Gate.VehicleNumberSaveFolder);
         }

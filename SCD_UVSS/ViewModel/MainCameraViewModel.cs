@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using log4net;
 using SCD_UVSS.Annotations;
 using SCD_UVSS.Controller;
 using SCD_UVSS.Dal;
@@ -23,6 +24,8 @@ namespace SCD_UVSS.ViewModel
 {
     public class MainCameraViewModel : INotifyPropertyChanged
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
+
         private readonly DataAccessLayer _dataAccessLayer;
         private Thread _thread;
 
@@ -71,9 +74,18 @@ namespace SCD_UVSS.ViewModel
         public MainCameraViewModel(string vehicleNumber, byte[] chasisImage, byte[] carTopImage, byte[] driverImage)
         {
             this._vehicleNumber = vehicleNumber;
-            this._chasisImage = ImageUtils.ByteArrayToBitMapImage(chasisImage);
-            this._carTopViewImage = ImageUtils.ByteArrayToBitMapImage(carTopImage);
-            this._driverImage = ImageUtils.ByteArrayToBitMapImage(driverImage);
+
+            var chasis = ImageUtils.ByteArrayToBitMapImage(chasisImage);
+            if (chasis != null)
+                this._chasisImage = chasis;
+
+            var topview = ImageUtils.ByteArrayToBitMapImage(carTopImage);
+            if (topview != null)
+                this._carTopViewImage = topview;
+
+            var driverImg = ImageUtils.ByteArrayToBitMapImage(driverImage);
+            if (driverImage != null)
+                this._driverImage = driverImg;
         }
 
         public void StartRecordingHandler(object obj)
@@ -172,6 +184,8 @@ namespace SCD_UVSS.ViewModel
         {
             try
             {
+                Logger.Info("Inside RecordManagerVehicleInformationRecived");
+
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     this.VehicleNumber = infoModel.Number;
@@ -181,13 +195,16 @@ namespace SCD_UVSS.ViewModel
                     this.DriverImage = ImageUtils.ByteArrayToBitMapImage(imagesModel.DriverImage);
                     this.CarTopViewImage = ImageUtils.ByteArrayToBitMapImage(imagesModel.VehicleOverallImage);
                 }
-             ));
+                    ));
 
+                Logger.Info("Done Dispatch: RecordManagerVehicleInformationRecived");
             }
             catch (Exception exception)
             {
+                Logger.Error("Done Dispatch: RecordManagerVehicleInformationRecived", exception);
                 if (this.ShowMessage != null)
                     this.ShowMessage(exception.Message);
+                Logger.Fatal(exception.Message, exception.InnerException);
             }
         }
 

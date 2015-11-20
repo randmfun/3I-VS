@@ -70,8 +70,7 @@ namespace SCD_UVSS.View
             if ((this.UserInfo.Role == Roles.Developer)
                 && (this.LoggedInUser.Role != Roles.Developer))
             {
-                this.txtUser.IsEnabled = false;
-                this.txtPassword.IsEnabled = false;
+                this.spMainPanel.Visibility = Visibility.Hidden;
             }
         }
     }

@@ -6,18 +6,31 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
+using log4net;
 
 namespace SCD_UVSS.helpers
 {
     public static class ImageUtils
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
+
         public static BitmapImage ByteArrayToBitMapImage(byte[] array)
         {
             var bitMapImage = new BitmapImage();
-            bitMapImage.BeginInit();
-            bitMapImage.StreamSource = new System.IO.MemoryStream(array);
-            bitMapImage.EndInit();
-            
+            try
+            {
+                Logger.Info("Inside ByteArrayToBitMapImage");
+                bitMapImage.BeginInit();
+                bitMapImage.StreamSource = new System.IO.MemoryStream(array);
+                bitMapImage.EndInit();
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("Exception ByteArrayToBitMapImage", exception);
+                Logger.Fatal(exception.Message, exception.InnerException);
+
+                return null;
+            }
             return bitMapImage;
         }
 

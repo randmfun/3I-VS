@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Documents;
 using log4net;
 using SCD_UVSS.Dal;
@@ -48,6 +49,8 @@ namespace SCD_UVSS.Controller
 
                 // We have a new Vehichle information, Notify the UI, to Referesh the content
                 this.OnVehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
+
+                Thread.Sleep(1000);
             }
         }
         
@@ -161,8 +164,12 @@ namespace SCD_UVSS.Controller
 
         protected void OnVehicleInformationRecived(VehicleBasicInfoModel vehicleBasicInfoModel, VehicleImagesModel vehicleImagesModel)
         {
+            Logger.Info("Inside OnVehicleInformationRecived");
+
             if (VehicleInformationRecived != null)
             {
+                Logger.Info("Firing OnVehicleInformationRecived");
+                
                 this.VehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
                 this._dataAccessLayer.AddVehicleEntryBasicInfo(vehicleBasicInfoModel);
                 this._dataAccessLayer.AddVehicleEntryImges(vehicleImagesModel);

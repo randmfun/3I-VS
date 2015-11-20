@@ -42,20 +42,39 @@ namespace SCD_UVSS.ViewModel
         public void AddBlackListItemHandler(object dummy)
         {
             Logger.Info(string.Format("Adding vehichle to Blacklist : {0}", this.AddVehicleNumber));
-
+            
             if (string.IsNullOrEmpty(this.AddVehicleNumber)) return;
-
-            this._dataAccessLayer.AddBlackListItem(new BlackListItem() {VehicleNumber = this.AddVehicleNumber});
+            try
+            {
+                this._dataAccessLayer.AddBlackListItem(new BlackListItem() {VehicleNumber = this.AddVehicleNumber});
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("AddBlackListItemHandler Failed", exception);
+                Logger.Error(exception.Message, exception.InnerException);
+                throw;
+            }
             Logger.Info(string.Format("Successfully Added vehichle to Blacklist : {0}", this.AddVehicleNumber));
         }
 
         public void SearchBlackListItemsHandler(object dummy)
         {
-            var results = this._dataAccessLayer.GetAllBlackListItem();
-            var filteredResults = this.GetFilteredList(results, this.SearchVehicleNumber);
+            Logger.Info("Search black list item");
 
-            this.SearchResults.Clear();
-            filteredResults.ToList().ForEach(item => this.SearchResults.Add(item));
+            try
+            {
+                var results = this._dataAccessLayer.GetAllBlackListItem();
+                var filteredResults = this.GetFilteredList(results, this.SearchVehicleNumber);
+
+                this.SearchResults.Clear();
+                filteredResults.ToList().ForEach(item => this.SearchResults.Add(item));
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("SearchBlackListItemsHandler Failed", exception);
+                Logger.Error(exception.Message, exception.InnerException);
+                throw;
+            }
         }
 
         private IEnumerable<BlackListItem> GetFilteredList(IEnumerable<BlackListItem> searchResults, string searchText)

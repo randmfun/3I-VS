@@ -28,7 +28,7 @@ namespace SCD_UVSS.SystemInput.Camera
             var dirInfo = new DirectoryInfo(directoryName);
 
             return (from file in dirInfo.GetFiles()
-                orderby file.LastWriteTime descending
+                orderby file.CreationTime descending
                 select file).First();
         }
 
