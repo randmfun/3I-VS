@@ -42,7 +42,20 @@ namespace SCD_UVSS.ViewModel
 
         public ICommand StartRecordingCmd { get; set; }
 
-        public string startRecordButtonContent = "Start Recording";
+        public ICommand StopRecordingCmd { get; set; }
+
+        public string startRecordButtonContent = "START";
+        public string stopRecordButtonContent = "STOP";
+
+        public string StopRecordButtonContent
+        {
+            get { return stopRecordButtonContent; }
+            set
+            {
+                this.stopRecordButtonContent = value;
+                OnPropertyChanged("StopRecordButtonContent");
+            }
+        }
 
         public string StartRecordButtonContent
         {
@@ -58,6 +71,7 @@ namespace SCD_UVSS.ViewModel
         {
             this._dataAccessLayer = dataAccessLayer;
             this.StartRecordingCmd = new RelayCommand(StartRecordingHandler);
+            this.StopRecordingCmd = new RelayCommand(StopRecordingHandler);
 
             this._vehicleNumber = "TN 00 0000";
             this._chasisImage = this.GetDefaultImage("no-chasis.jpg");
@@ -157,11 +171,12 @@ namespace SCD_UVSS.ViewModel
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-
         
         public void StartRecordingThread()
         {
             this._recordManager.ContinueRecording = true;
+            Logger.Info("Start Recording Handler - Start Recording");
+
             if (!this._thread.IsAlive)
             {
                 this.StartRecordButtonContent = "Recording..";
@@ -169,8 +184,16 @@ namespace SCD_UVSS.ViewModel
                 this._thread.IsBackground = true;
                 this._thread.SetApartmentState(ApartmentState.STA);
                 this._thread.Start();
-                
+
+                Logger.Info("Started Recording Thread");
             }
+        }
+
+        public void StopRecordingHandler(object obj)
+        {
+            this._recordManager.ContinueRecording = false;
+            this.StartRecordButtonContent = "START";
+            Logger.Info("Stop Recording Handler - Stopped Recording");
         }
 
         private void RecordDelegate()

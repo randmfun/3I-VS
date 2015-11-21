@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             >
+             Width="1500" Height="800" MinWidth="800" MinHeight="800">
     <UserControl.Resources>
         <Storyboard x:Key="_alerStoryBoard" BeginTime="00:00:00" RepeatBehavior="Forever" 
                                     Storyboard.TargetName="button2" 
@@ -16,33 +16,42 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="30*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" >
-            <!--<Image Margin="10" Source="D:\\chasis.jpg" Stretch="UniformToFill" />-->
-            <Image Margin="10" Source="{Binding ChasisImage}" />
-        </ScrollViewer>
-        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" >
+                <!--<Image Margin="10" Source="D:\\chasis.jpg" Stretch="UniformToFill" />-->
+                <Image Margin="10" Source="{Binding ChasisImage}" />
+            </ScrollViewer>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <ScrollViewer >
             <Image Margin="10" Source="{Binding CarTopViewImage}"/>
         </ScrollViewer>
-        <ScrollViewer Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" >
-            <Image Margin="10" Stretch="UniformToFill" Source="{Binding DriverImage}"/>    
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+        <ScrollViewer  >
+            <Image Margin="10" Stretch="UniformToFill" Source="{Binding DriverImage}"/>
         </ScrollViewer>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-            <Button Margin="10" Content="{Binding StartRecordButtonContent}" Command="{Binding StartRecordingCmd}" FontWeight="Bold" FontSize="30" />
+        </GroupBox>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" x:Name="recBtnPanel" FlowDirection="LeftToRight" Height="100">
+            <Button Margin="10" Height="75" Width="75" Content="{Binding StartRecordButtonContent}"  Command="{Binding StartRecordingCmd}" FontWeight="Bold"  />
+            <Button Margin="10" Height="75" Width="75" Content="{Binding StopRecordButtonContent}" Command="{Binding StopRecordingCmd}" FontWeight="Bold"  />
             <!--<Button Margin="10" Background="Red" FontWeight="Bold" Height="50" Width="50" ToolTip="Blacklisted.."/>-->
         </StackPanel>
+
         <TextBlock Text="{Binding VehicleNumber}" FontWeight="ExtraBlack" FontSize="60"
                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
-        
+
         <Image Grid.Row="2" Grid.Column="3" Margin="10" Source="pack://application:,,,/LOGO.jpg" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

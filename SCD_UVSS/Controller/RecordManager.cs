@@ -38,18 +38,22 @@ namespace SCD_UVSS.Controller
 
         public void StartRecording()
         {
-            Logger.Info("Started Recording...");
+            Logger.Info("Inside Started Recording...");
 
-            while (this.ContinueRecording)
+            while (true)
             {
-                VehicleBasicInfoModel vehicleBasicInfoModel;
-                VehicleImagesModel vehicleImagesModel;
+                if (this.ContinueRecording)
+                {
+                    Logger.Info("Continue Reading is True!!");
 
-                if (!this.StartRecordingInfo(out vehicleBasicInfoModel, out vehicleImagesModel)) continue;
+                    VehicleBasicInfoModel vehicleBasicInfoModel;
+                    VehicleImagesModel vehicleImagesModel;
 
-                // We have a new Vehichle information, Notify the UI, to Referesh the content
-                this.OnVehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
+                    if (!this.StartRecordingInfo(out vehicleBasicInfoModel, out vehicleImagesModel)) continue;
 
+                    // We have a new Vehichle information, Notify the UI, to Referesh the content
+                    this.OnVehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);
+                }
                 Thread.Sleep(1000);
             }
         }
