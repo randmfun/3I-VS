@@ -11,7 +11,7 @@ using SCD_UVSS.ImageProcessor;
 namespace UnitTest
 {
     [TestFixture]
-    //[Ignore("Ignore Image Sticher")]
+    [Ignore("Ignore Image Sticher")]
     public class TestImageSticher
     {
         public void DeleteFile(string absFilePath)
@@ -25,6 +25,14 @@ namespace UnitTest
             }
         }
 
+
+        [Test]
+        public void TestMergeMe()
+        {
+            var st = new ImageSticher();
+            //st.MergeMe(null,null);
+        }
+
         [Test]
         public void TestSticher()
         {
@@ -32,7 +40,8 @@ namespace UnitTest
             var executiongDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var tempFileName = Path.ChangeExtension(Path.Combine(Path.GetTempPath(), Path.GetTempFileName()), ".jpg");
 
-            var fileList = new List<string> {"split_1.jpg", "split_2.jpg"};
+            //var fileList = new List<string> {"split_1.jpg", "split_2.jpg"};
+            var fileList = new List<string> { @"atual2\one.jpg", @"atual2\one.jpg" };
             var absFileList = from fileName in fileList
                               select Path.Combine(executiongDir, "Resources", fileName);
             

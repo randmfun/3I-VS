@@ -25,7 +25,7 @@
         <GroupBox Header="Add Blacklist Vehicle Number... " Grid.Row="0">
             <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Text="Vehicle Number : " Margin="10" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding AddVehicleNumber}" Margin="10" Width="100" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Path=AddVehicleNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" Width="100" VerticalAlignment="Center"/>
                 <Button Margin="10" Width="55" Height="35" Content="Add.." VerticalAlignment="Center" Command="{Binding CmdAddBlackListedItem}"/>
             </StackPanel>
         </GroupBox>

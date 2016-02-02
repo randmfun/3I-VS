@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using log4net;
 using SCD_UVSS.Dal;
@@ -55,6 +56,7 @@ namespace SCD_UVSS.ViewModel
                 throw;
             }
             Logger.Info(string.Format("Successfully Added vehichle to Blacklist : {0}", this.AddVehicleNumber));
+            this.AddVehicleNumber = string.Empty;
         }
 
         public void SearchBlackListItemsHandler(object dummy)

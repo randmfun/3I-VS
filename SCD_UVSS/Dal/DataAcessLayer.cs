@@ -82,11 +82,8 @@ namespace SCD_UVSS.Dal
         private Gate ConstructDummyGateSetupItems()
         {
             var gate = new Gate("Main Entry Gate");
-            gate.Cameras.Add(new CameraModel()
-            {
-                Name = "Chasis One", ImageType = ImageType.ChaisisImage 
-            });
-            gate.Cameras.Add(new CameraModel() { Name = "Chasis Two", ImageType = ImageType.ChaisisImage });
+            gate.Cameras.Add(new CameraModel(){Name = "Chasis One", ImageType = ImageType.ChaisisImage });
+            //gate.Cameras.Add(new CameraModel() { Name = "Chasis Two", ImageType = ImageType.ChaisisImage });
             gate.Cameras.Add(new CameraModel() { Name = "Top View", ImageType = ImageType.VehicleOverallImage });
             gate.Cameras.Add(new CameraModel() { Name = "Driver Image", ImageType = ImageType.DriverImage });
             gate.Cameras.Add(new CameraModel() { Name = "Licence Plate", ImageType = ImageType.NumberPlateImage });

@@ -24,6 +24,8 @@ namespace SCD_UVSS.Controller
 
         public bool ContinueRecording { get; set; }
 
+        public bool ForceExit { get; set; }
+
         public RecordManager(GateProvider gateProvider, DataAccessLayer dataAccessLayer)
         {
             this.GateProvider = gateProvider;
@@ -42,6 +44,9 @@ namespace SCD_UVSS.Controller
 
             while (true)
             {
+                if(this.ForceExit)
+                    break;
+
                 if (this.ContinueRecording)
                 {
                     Logger.Info("Continue Reading is True!!");
@@ -99,7 +104,7 @@ namespace SCD_UVSS.Controller
 
             vehicleImagesModel = new VehicleImagesModel(vehicleBasicInfoModel.UniqueEntryId);
             
-            var chasisImages = new List<byte[]>();
+            //var chasisImages = new List<byte[]>();
 
             foreach (var cameraProvider in this.GateProvider.CameraProviders)
             {
@@ -107,7 +112,8 @@ namespace SCD_UVSS.Controller
                 switch (cameraProvider.CameraModel.ImageType)
                 {
                     case ImageType.ChaisisImage:
-                        chasisImages.Add(image);
+                        //chasisImages.Add(image);
+                        vehicleImagesModel.ChaisisImage = image;
                         break;
                     case ImageType.DriverImage:
                         vehicleImagesModel.DriverImage = image;
@@ -121,7 +127,7 @@ namespace SCD_UVSS.Controller
                 }
             }
 
-            vehicleImagesModel.ChaisisImage = ImageSticher.Sticher(chasisImages);
+            //vehicleImagesModel.ChaisisImage = ImageSticher.Sticher(chasisImages);
             
             Logger.Info("RecordCurrentSnapshots Ended..");
         }
