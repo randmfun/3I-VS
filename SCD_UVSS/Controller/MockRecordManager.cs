@@ -41,7 +41,7 @@ namespace SCD_UVSS.Controller
             
             vehicleImagesModel.ChaisisImage = File.ReadAllBytes(Path.Combine(resourceDir, "chasis.jpg"));
             vehicleImagesModel.DriverImage = File.ReadAllBytes(Path.Combine(resourceDir, "driver.jpg"));
-            vehicleImagesModel.NumberPlateImage = null;
+            vehicleImagesModel.NumberPlateImage = File.ReadAllBytes(Path.Combine(resourceDir, "driver.jpg")); 
             vehicleImagesModel.VehicleOverallImage = File.ReadAllBytes(Path.Combine(resourceDir, "car-topview.jpg"));
             
             base.OnVehicleInformationRecived(vehicleBasicInfoModel, vehicleImagesModel);

@@ -172,12 +172,12 @@ namespace SCD_UVSS.Dal.DBProviders
                         var mySqlCommand = this.connection.CreateCommand();
 
                         mySqlCommand.CommandText =
-                            "INSERT INTO vehicle_entry_images(id,chasis_image, driver_image, car_full_image) VALUES(@id, @chasisImage, @driverImage, @overallImage)";
+                            "INSERT INTO vehicle_entry_images(id,chasis_image, driver_image, car_full_image, licence_plate_image) VALUES(@id, @chasisImage, @driverImage, @overallImage, @licencePlateImage)";
                         mySqlCommand.Parameters.AddWithValue("@id", vehicleImagesModel.ForeignKeyId);
                         mySqlCommand.Parameters.AddWithValue("@chasisImage", vehicleImagesModel.ChaisisImage);
                         mySqlCommand.Parameters.AddWithValue("@driverImage", vehicleImagesModel.DriverImage);
                         mySqlCommand.Parameters.AddWithValue("@overallImage", vehicleImagesModel.VehicleOverallImage);
-
+                        mySqlCommand.Parameters.AddWithValue("@licencePlateImage", vehicleImagesModel.NumberPlateImage);
                         mySqlCommand.ExecuteNonQuery();
 
                         return true;
@@ -292,7 +292,7 @@ namespace SCD_UVSS.Dal.DBProviders
                         dbImageResult.CarFullImage = firstRow["car_full_image"] as byte[];
                         dbImageResult.ChasisImage = firstRow["chasis_image"] as byte[];
                         dbImageResult.DriverImage = firstRow["driver_image"] as byte[];
-
+                        dbImageResult.LicencePlateImage = firstRow["licence_plate_image"] as byte[];
                     }
                     return dbImageResult;
                 }

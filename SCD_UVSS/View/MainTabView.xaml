@@ -6,12 +6,12 @@
              mc:Ignorable="d" 
              >
     <Grid>
-        <TabControl Name="tabControl" ItemsSource="{Binding Tabs}" TabStripPlacement="Right" Margin="10">
+        <TabControl Name="tabControl" ItemsSource="{Binding Tabs}" TabStripPlacement="Bottom" Margin="10">
             <TabControl.ItemTemplate>
                 <!-- this is the header template-->
                 <DataTemplate >
-                    <TextBlock Margin="10" FontWeight="Bold" FontSize="20"
-                    Text="{Binding Header}" />
+                    <TextBlock Margin="10" FontWeight="Bold" FontSize="10"
+                    Text="{Binding Header}" ToolTip="{Binding Header}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>

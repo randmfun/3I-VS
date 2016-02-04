@@ -32,8 +32,10 @@ namespace SCD_UVSS.ViewModel
         private BitmapImage _chasisImage;
         private BitmapImage _carTopViewImage;
         private BitmapImage _driverImage;
-        private string _vehicleNumber;
+        private BitmapImage _licencePlateImage;
 
+        private string _vehicleNumber;
+        
         private bool _isBlackListed;
 
         private readonly RecordManager _recordManager = null;
@@ -46,6 +48,13 @@ namespace SCD_UVSS.ViewModel
 
         public string startRecordButtonContent = "START";
         public string stopRecordButtonContent = "STOP";
+
+        private UserInfo _loggedInUserInfo;
+
+        public UserInfo LoggedInUser
+        {
+            get { return _loggedInUserInfo ?? (_loggedInUserInfo = UserManager.Instance.LoggedInUser); }
+        }
 
         public string StopRecordButtonContent
         {
@@ -77,6 +86,7 @@ namespace SCD_UVSS.ViewModel
             this._chasisImage = this.GetDefaultImage("no-chasis.jpg");
             this._carTopViewImage = this.GetDefaultImage("no-car-topview.jpg");
             this._driverImage = this.GetDefaultImage("no-driver.jpg");
+            this._licencePlateImage = this.GetDefaultImage("no-licence.jpg");
 
             var gateProvider = new GateProvider(this._dataAccessLayer.ReadGateInfo());
             this._recordManager = new RecordManager(gateProvider, dataAccessLayer);
@@ -127,6 +137,16 @@ namespace SCD_UVSS.ViewModel
             }
         }
 
+        public BitmapImage LicencePlateImage
+        {
+            get { return this._licencePlateImage; }
+            set
+            {
+                this._licencePlateImage = value;
+                this.OnPropertyChanged("LicencePlateImage");
+            }
+        }
+
         public BitmapImage DriverImage
         {
             get { return this._driverImage; }
@@ -154,6 +174,14 @@ namespace SCD_UVSS.ViewModel
             {
                 this._isBlackListed = value;
                 this.OnPropertyChanged("IsBlackListed");
+            }
+        }
+
+        public bool IsStartStopBtnVisible
+        {
+            get
+            {
+                return LoggedInUser.Role == Roles.Developer;
             }
         }
 
@@ -217,6 +245,7 @@ namespace SCD_UVSS.ViewModel
                     this.ChasisImage = ImageUtils.ByteArrayToBitMapImage(imagesModel.ChaisisImage);
                     this.DriverImage = ImageUtils.ByteArrayToBitMapImage(imagesModel.DriverImage);
                     this.CarTopViewImage = ImageUtils.ByteArrayToBitMapImage(imagesModel.VehicleOverallImage);
+                    this.LicencePlateImage = ImageUtils.ByteArrayToBitMapImage(imagesModel.NumberPlateImage);
                 }
                     ));
 

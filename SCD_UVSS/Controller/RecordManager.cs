@@ -71,7 +71,7 @@ namespace SCD_UVSS.Controller
             try
             {
                 if (!this.HasLoopStarted()) return false;
-
+ 
                 // There is a NEW Vehicle entered, Start capturing
                 this.RecordCurrentSnapshots(out vehicleBasicInfoModel, out vehicleImagesModel);
 

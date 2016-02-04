@@ -18,6 +18,8 @@ namespace UnitTest
     {
         private static Gate ConstructGate()
         {
+            UserManager.Instance.SetLoggedInUser("super");
+
             var gate = new Gate("Main Entry Gate");
 
             gate.Cameras.Add(new CameraModel() { Name = "Chasis One", ImageType = ImageType.ChaisisImage });

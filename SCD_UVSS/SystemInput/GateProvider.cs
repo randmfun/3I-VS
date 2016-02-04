@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using SCD_UVSS.Dal;
 using SCD_UVSS.Model;
 using SCD_UVSS.SystemInput.Camera;
 using SCD_UVSS.SystemInput.COM;
@@ -20,12 +21,18 @@ namespace SCD_UVSS.SystemInput
 
         private IEnumerable<ICameraProvider> _cameraProviders;
 
+        private UserInfo _loggedInUserInfo;
+
+        public UserInfo LoggedInUser
+        {
+            get { return _loggedInUserInfo ?? (_loggedInUserInfo = UserManager.Instance.LoggedInUser); }
+        }
+
         public GateProvider(Gate gate)
         {
             this.Gate = gate;
-
-            //this._comPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
-            this._comPortProvider = new MockComProvider(){MockReadString = "S"};
+            
+            this._comPortProvider = GetComPortProvider();
             this._cameraProviders = this.Gate.Cameras.Select(x => new HikVisionCameraProvider(x));
             this._licenceNumberProvider = new LicenceNumberProvider(this.Gate.VehicleNumberSaveFolder);
         }
@@ -52,6 +59,25 @@ namespace SCD_UVSS.SystemInput
             {
                 this._cameraProviders = value;
             }
+        }
+
+        //FIXME: Very bad idea to have user roles here. Pass it via dependency
+        private IComPortProvider GetComPortProvider()
+        {
+            IComPortProvider retComPortProvider = null;
+
+            switch (this.LoggedInUser.Role)
+            {
+                case Roles.Operator:
+                case Roles.Admin:
+                    retComPortProvider = new ComPortProvider(new SerialPort(this.Gate.ComPortName));
+                    break;
+                case Roles.Developer:
+                    retComPortProvider = new MockComProvider() { MockReadString = "S" };
+                    break;
+            }
+
+            return retComPortProvider;
         }
     }
 }

@@ -56,26 +56,26 @@ namespace SCD_UVSS.ViewModel
             switch (this.LoggedInUser.Role)
             {
                 case Roles.Operator:
-                    this._tabs.Add(new TabItem { Header = "Camera View", ContentControl = _container.Resolve<MainCameraView>() });
+                    this._tabs.Add(new TabItem { Header = "Cameras", ContentControl = _container.Resolve<MainCameraView>() });
                     this._tabs.Add(new TabItem { Header = "Search", ContentControl = _container.Resolve<SearchView>() });
                     break;
 
                 case Roles.Admin:
-                    this._tabs.Add(new TabItem { Header = "Camera View", ContentControl = _container.Resolve<MainCameraView>() });
+                    this._tabs.Add(new TabItem { Header = "Cameras", ContentControl = _container.Resolve<MainCameraView>() });
                     this._tabs.Add(new TabItem { Header = "Search", ContentControl = _container.Resolve<SearchView>() });
 
                     this._tabs.Add(new TabItem { Header = "Black List", ContentControl = _container.Resolve<BlackListView>() });
-                    this._tabs.Add(new TabItem {Header = "Edit Users", ContentControl = _container.Resolve<UserManagerView>()});
+                    this._tabs.Add(new TabItem {Header = "Edit", ContentControl = _container.Resolve<UserManagerView>()});
                     break;
                 
                 case Roles.Developer:
-                    this._tabs.Add(new TabItem { Header = "Camera View", ContentControl = _container.Resolve<MainCameraView>() });
+                    this._tabs.Add(new TabItem { Header = "Cameras", ContentControl = _container.Resolve<MainCameraView>() });
                     this._tabs.Add(new TabItem { Header = "Search", ContentControl = _container.Resolve<SearchView>() });
 
                     this._tabs.Add(new TabItem { Header = "Black List", ContentControl = _container.Resolve<BlackListView>() });
-                    this._tabs.Add(new TabItem {Header = "Edit Users", ContentControl = _container.Resolve<UserManagerView>()});
+                    this._tabs.Add(new TabItem {Header = "Edit", ContentControl = _container.Resolve<UserManagerView>()});
                     
-                    this._tabs.Add(new TabItem { Header = "Gate Setup", ContentControl = _container.Resolve<GateView>() });
+                    this._tabs.Add(new TabItem { Header = "Gate", ContentControl = _container.Resolve<GateView>() });
                     break;
             }
         }

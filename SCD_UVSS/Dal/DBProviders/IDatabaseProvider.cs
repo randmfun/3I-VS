@@ -63,6 +63,6 @@ namespace SCD_UVSS.Dal.DBProviders
         public byte[] ChasisImage { get; set; }
         public byte[] DriverImage { get; set; }
         public byte[] CarFullImage { get; set; }
+        public byte[] LicencePlateImage { get; set; }
     }
-
 }
