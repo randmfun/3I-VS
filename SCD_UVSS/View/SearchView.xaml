@@ -70,10 +70,10 @@
                   IsReadOnly="True" AutoGenerateColumns="False"
                   ItemsSource="{Binding SearchDataList}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="100"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="150"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}"  Width="150"/>
-                    <DataGridTextColumn Header="Vehicle Number" Binding="{Binding VehicleNumber}"  Width="100"/>
-                    <DataGridTemplateColumn Width="*">
+                    <DataGridTextColumn Header="Vehicle Number" Binding="{Binding VehicleNumber}"  Width="150"/>
+                    <DataGridTemplateColumn Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Margin="5" Command="{Binding ShowImage}">Images</Button>

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using log4net;
 using SCD_UVSS.Dal;
 using SCD_UVSS.ViewModel;
 
@@ -20,6 +21,8 @@ namespace SCD_UVSS.View
     /// </summary>
     public partial class CameraImagesViewWindow : Window
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(GateSetupViewModel));
+
         public CameraImagesViewWindow(DataAccessLayer dataAccessLayer, string uniqueId, string vehicleNumber)
         {
             InitializeComponent();
@@ -35,8 +38,17 @@ namespace SCD_UVSS.View
         private MainCameraViewModel ConstructMainCameraViewModel(DataAccessLayer dataAccessLayer, string uniqueId,
             string vehicleNumber)
         {
-            var dbImageResult = dataAccessLayer.GetImageResult(uniqueId);
-            return new MainCameraViewModel(vehicleNumber, dbImageResult.ChasisImage, dbImageResult.CarFullImage, dbImageResult.DriverImage);
+            try
+            {
+                var dbImageResult = dataAccessLayer.GetImageResult(uniqueId);
+                return new MainCameraViewModel(vehicleNumber, dbImageResult.ChasisImage, dbImageResult.CarFullImage,
+                    dbImageResult.DriverImage);
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("ConstructMainCameraViewModel failed:", exception);
+            }
+            return null;
         }
     }
 }

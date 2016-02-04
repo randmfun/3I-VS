@@ -222,12 +222,12 @@ namespace SCD_UVSS.Dal.DBProviders
 
                         mySqlCommand.CommandText =
                             "SELECT * FROM vehicle_entry_info " +
-                            "WHERE number = @vehicleNumber " +
+                            "WHERE number LIKE '%" + dbSearchRequestModel.VehicleNumber + "%' " +
                             "AND entrytime >= @entryDateGreaterThan AND entrytime < @entryDateLessThan ";
                         // TODO: Fix Time
                         //+"AND DATE_FORMAT(entrytime, '%H:%i:s') >= @entryTimeGreaterThan AND DATE_FORMAT(entrytime, '%H:%i:s') < @entryTimeLessThan";
 
-                        mySqlCommand.Parameters.AddWithValue("@vehicleNumber", dbSearchRequestModel.VehicleNumber);
+                        //mySqlCommand.Parameters.AddWithValue("@vehicleNumber", dbSearchRequestModel.VehicleNumber);
 
                         mySqlCommand.Parameters.AddWithValue("@entryDateGreaterThan",
                             dbSearchRequestModel.StaDateTime.GetDatePortion());
@@ -279,7 +279,7 @@ namespace SCD_UVSS.Dal.DBProviders
 
                         mySqlCommand.CommandText =
                             "SELECT * FROM vehicle_entry_images " +
-                            "WHERE id = @uniqueId ";
+                            "WHERE id=@uniqueId ";
 
                         mySqlCommand.Parameters.AddWithValue("@uniqueId", uniqueId);
 
