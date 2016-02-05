@@ -153,7 +153,7 @@ namespace SCD_UVSS.Controller
             try
             {
                 Logger.Info("End Loop ..");
-                const string blackListedMessage = "B";
+                const string blackListedMessage = "B";  
                 const string safelyEndMessage = "E";
 
                 string endLoopMessage = isBlacklisted ? blackListedMessage : safelyEndMessage;

@@ -3,16 +3,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:view="clr-namespace:SCD_UVSS.View"
-        Title="SCD UVSS" Height="350" Width="525" 
+        Title="SCD UVSS"  
         Icon="LOGO.jpg"
         WindowStyle="SingleBorderWindow" ResizeMode="NoResize"  
         WindowStartupLocation="CenterScreen" 
         WindowState="Maximized" 
         KeyDown="MainWindow_OnKeyDown">
     <Grid>
-        <StackPanel>
             <view:MainTabView x:Name="mainTabCtrl" DataContext="MainTabViewModel">
             </view:MainTabView>
-        </StackPanel>
     </Grid>
 </Window>

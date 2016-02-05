@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Width="1800" Height="900" MinWidth="800" MinHeight="800" Background="White">
+             Background="White">
     <UserControl.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
@@ -16,35 +16,33 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70*"/>
-            <RowDefinition Height="20*"/>
-            <!--<RowDefinition Height="10*"/>-->
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
-            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" >
-                <!--<Image Margin="10" Source="D:\\chasis.jpg" Stretch="UniformToFill" />-->
-                <Image Margin="10" Source="{Binding ChasisImage}" Stretch="UniformToFill"/>
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Height="400">
+            <ScrollViewer>
+                <Image Margin="1" Source="{Binding ChasisImage}" Stretch="UniformToFill"/>
             </ScrollViewer>
-        </GroupBox>
+       </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.Column="0">
             <ScrollViewer >
-                <Image Margin="10" Source="{Binding CarTopViewImage}" Stretch="UniformToFill"/>
+                <Image Margin="1" Source="{Binding CarTopViewImage}" Stretch="UniformToFill"/>
             </ScrollViewer>
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.Column="1" >
             <ScrollViewer  >
-                <Image Margin="10" Stretch="UniformToFill" Source="{Binding DriverImage}" />
+                <Image Margin="1" Source="{Binding DriverImage}" Stretch="UniformToFill" />
             </ScrollViewer>
         </GroupBox>
 
@@ -54,7 +52,7 @@
         
         <GroupBox Grid.Row="1" Grid.Column="3">
             <ScrollViewer >
-                <Image Margin="10" Source="{Binding LicencePlateImage}" Stretch="UniformToFill"/>
+                <Image Margin="1" Source="{Binding LicencePlateImage}" Stretch="UniformToFill"/>
             </ScrollViewer>
         </GroupBox>
 
@@ -62,7 +60,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="4" x:Name="recBtnPanel" FlowDirection="LeftToRight"  Visibility="{Binding IsStartStopBtnVisible, Converter={StaticResource BoolToVis}}">
             <Button Margin="5" Height="50" Width="50" Content="{Binding StartRecordButtonContent}"  Command="{Binding StartRecordingCmd}" FontWeight="Bold"  />
             <Button Margin="5" Height="50" Width="50" Content="{Binding StopRecordButtonContent}" Command="{Binding StopRecordingCmd}" FontWeight="Bold"  />
-            <!--<Button Margin="10" Background="Red" FontWeight="Bold" Height="50" Width="50" ToolTip="Blacklisted.."/>-->
+            <Button Margin="10" Background="Red" FontWeight="Bold" Height="50" Width="50" ToolTip="Blacklisted.."/>
         </StackPanel>
 
         <Image Grid.Row="1" Grid.Column="5" Margin="0" Source="pack://application:,,,/LOGO.jpg" HorizontalAlignment="Right"/>
